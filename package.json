@@ -1,0 +1,39 @@
+{
+  "name": "blpage",
+  "description": "=== Plugin Name === Contributors: (this should be a list of wordpress.org userid's) Donate link: https://https://banglalink.net/en/ Tags: comments, spam Requires at least: 3.0.1 Tested up to: 3.4 Stable tag: 4.3 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^27.8.0"
+  },
+  "dependencies": {
+    "react-beautiful-dnd": "^13.1.1",
+    "react-dnd": "10.0.2",
+    "react-dnd-html5-backend": "10.0.2",
+    "classnames": "2.2.6",
+    "immutability-helper": "^3.0.0",
+    "lodash": "4.17.15",
+    "react": "16.8.4",
+    "react-dom": "16.8.4",
+    "react-frame-component": "^4.1.0",
+    "react-scripts": "2.1.8",
+    "shortid": "2.2.15"
+  },
+  "author": "banglalink",
+  "license": "ISC"
+}
