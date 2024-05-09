@@ -122,6 +122,8 @@ class Blpage {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-blpage-public.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blpage-menus.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blpage-post-types.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-blpage-rest-api.php';
 
 		$this->loader = new Blpage_Loader();
 

@@ -34,7 +34,7 @@ const Container = () => {
   const handleDrop = useCallback(
     (dropZone, item) => {
       console.log('dropZone', dropZone)
-      console.log('item', item)
+      console.log('item2', item)
 
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
@@ -59,6 +59,7 @@ const Container = () => {
           ...components,
           [newComponent.id]: newComponent
         });
+        console.log('components', components)
         setLayout(
           handleMoveSidebarComponentIntoParent(
             layout,
@@ -105,6 +106,7 @@ const Container = () => {
           newItem
         )
       );
+      console.log('layout, components', layout, components)
     },
     [layout, components]
   );
@@ -115,6 +117,7 @@ const Container = () => {
         key={row.id}
         data={row}
         handleDrop={handleDrop}
+        handleDropToTrashBin={handleDropToTrashBin}
         components={components}
         path={currentPath}
       />
@@ -123,14 +126,15 @@ const Container = () => {
 
   // dont use index for key when mapping over items
   // causes this issue - https://github.com/react-dnd/react-dnd/issues/342
+  // <div className="sideBar" >
+  //   <h2>Screens</h2>
+  //   {initialScreens.map((sideBarItem, index) => (
+  //     <ScreenItem key={sideBarItem.id} data={sideBarItem} />
+  //   ))}
+  // </div>
   return (
     <div className="dnd-body">
-      <div className="sideBar">
-        <h2>Screens</h2>
-        {initialScreens.map((sideBarItem, index) => (
-          <ScreenItem key={sideBarItem.id} data={sideBarItem} />
-        ))}
-      </div>
+      
       <div className="pageContainer">
         <h2>Title: Screen 1 Content</h2>
         <div className="page">
@@ -169,6 +173,7 @@ const Container = () => {
         />
       </div>
       <div className="sideBar">
+      <button className='save-icon'>Update</button>
         <h2>Components</h2>
         {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => (
           <SideBarItem key={sideBarItem.id} data={sideBarItem} />

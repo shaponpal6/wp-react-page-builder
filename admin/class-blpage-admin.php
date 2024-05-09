@@ -73,8 +73,8 @@ class Blpage_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blpage-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style('bl-react-app', BLPAGE_PATH . 'build/index.css', array('wp-element'), '1.0');
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blpage-admin.css'.'?version='.time(), array(), $this->version, 'all' );
+		wp_enqueue_style('bl-react-app', BLPAGE_PATH . 'build/index.css'.'?version='.time(), array('wp-element'), '1.0');
 
 	}
 
@@ -97,8 +97,17 @@ class Blpage_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blpage-admin.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script('bl-react-app-js',  BLPAGE_PATH . 'build/index.js', array('wp-element'), '1.0', true);
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blpage-admin.js'.'?version='.time(), array( 'jquery' ), $this->version, false );
+		wp_enqueue_script('bl-react-app-js',  BLPAGE_PATH . 'build/index.js'.'?version='.time(), array('wp-element'), '1.0', true);
+		// Pass wpApiSettings to the JavaScript file
+		wp_localize_script(
+			'bl-react-app-js',
+			'wpApiSettings',
+			array(
+				'root' => esc_url_raw( rest_url() ),
+				'nonce' => wp_create_nonce( 'wp_rest' )
+			)
+		);
 
 	}
 
@@ -106,11 +115,11 @@ class Blpage_Admin {
 		global $pagenow;
 		
 		// Check if we are on the "Screens Builder" page
-		if ($pagenow == 'admin.php' && isset($_GET['page']) && $_GET['page'] == 'screens_builder') {
-			echo '<style>#wpadminbar, #adminmenumain, #wpfooter { display:none !important; }</style>';
-			echo '<style>#adminmenumain, #adminmenuback, #wpcontent { margin-left: 0 !important; }</style>';
-			echo '<style>.wrap { margin-left: 0 !important; }</style>';
-		}
+		// if ($pagenow == 'admin.php' && isset($_GET['page']) && $_GET['page'] == 'screens_builder') {
+		// 	echo '<style>#wpadminbar, #adminmenumain, #wpfooter { display:none !important; }</style>';
+		// 	echo '<style>#adminmenumain, #adminmenuback, #wpcontent { margin-left: 0 !important; }</style>';
+		// 	echo '<style>.wrap { margin-left: 0 !important; }</style>';
+		// }
 	}
 
 }

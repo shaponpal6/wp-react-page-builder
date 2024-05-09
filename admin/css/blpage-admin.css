@@ -111,3 +111,49 @@ body {
   flex-direction: column;
   margin-bottom: 100px;
 }
+
+/** Component */
+.component-wrapper {
+  position: relative;
+}
+
+.corner-elements {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.corner-elements .icon {
+  margin-left: 5px; /* Add some spacing between the icons */
+  font-family: 'dashicons'; /* Set font family to WordPress dashicons */
+  font-size: 16px; /* Adjust icon size as needed */
+}
+
+/* Custom classes for specific icons */
+/* .corner-elements .save-icon:before {
+  content: '\f147';
+} */
+
+/* .corner-elements .trash-icon:before {
+  content: '\f182'; 
+} */
+
+.corner-elements .save-icon {
+  border: 1px solid;
+  padding: 1px 2px;
+  border-radius: 2px;
+  background: #04AA6D;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.corner-elements .trash-icon {
+  border: 1px solid;
+  padding: 1px 2px;
+  border-radius: 2px;
+  background: #f44336;
+  color: #fff;
+  cursor: pointer;
+}
+
