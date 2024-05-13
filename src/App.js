@@ -1,10 +1,14 @@
 
+import { store } from './store/store'
+import { Provider } from 'react-redux'
 import DndApp from './dnd/index';
 
 const App = () => {
 
   return (
-    <DndApp/>
+    <Provider store={store}>
+      <DndApp />
+    </Provider>
   );
 };
 

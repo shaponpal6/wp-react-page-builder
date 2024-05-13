@@ -76,7 +76,7 @@ function custom_get_single_screen($request) {
         'id'         => $screen->ID,
         'title'      => $screen->post_title,
         'content'    => $screen->post_content,
-		'bl_screen_data'    => $metadata,
+		'bl_screen_data'    => $metadata ?? [],
         // Add more fields as needed
     );
 
@@ -90,7 +90,7 @@ function custom_save_screen_data($request) {
     // Validate and sanitize data as needed
 
     // Update screen post meta with the data
-    update_post_meta($screen_id, 'bl_screen_data', $data);
+    update_post_meta($screen_id, 'bl_screen_data', $data ?? []);
 
     return new WP_REST_Response('Screen data saved successfully', 200);
 }

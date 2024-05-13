@@ -74,7 +74,7 @@ body {
 
 .columns {
   display: flex;
-  padding: 20px 0;
+  padding: 0 20px;
 }
 
 .columnContainer {
@@ -117,7 +117,7 @@ body {
   position: relative;
 }
 
-.corner-elements {
+.corner-elements, .top-right-corner {
   position: absolute;
   top: 0;
   right: 0;
@@ -155,5 +155,47 @@ body {
   background: #f44336;
   color: #fff;
   cursor: pointer;
+}
+.top-right-corner{
+  border: 1px solid;
+  border-radius: 2px;
+  background: #f44336;
+  color: #fff;
+  cursor: pointer;
+}
+.bottom-right-corner {
+  position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 1px solid;
+    padding: 4px 14px;
+    border-radius: 2px;
+    background: #04AA6D;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0 14px 4px 0;
+}
+
+.modal {
+  position: absolute;
+  /* top: 40px;
+  left: 40px;
+  right: 40px;
+  bottom: 40px; */
+  background-color: #fff;
+  padding: 24px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(17, 8, 26, 0.347);
 }
 

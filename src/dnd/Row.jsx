@@ -1,15 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { ROW } from "./constants";
 import DropZone from "./DropZone";
 import Column from "./Column";
 import ComponentModal from "./ComponentModal";
+import {fetchScreenData} from "../store/actions/screen";
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../store/store';
+import {removeScreenData} from "../store/actions/screen";
 
 const style = {};
 const Row = ({ data, components, handleDrop, path, handleDropToTrashBin }) => {
   const ref = useRef(null);
-  
   const [input, setInputValue]= useState('');
+  const dispatch = useAppDispatch();
+  const store = useSelector((state) => state.screen);
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -47,63 +52,28 @@ const Row = ({ data, components, handleDrop, path, handleDropToTrashBin }) => {
 };
 
   const handleInput = (e) => {
-    console.log(e.target.value);
     setInputValue(e.target.value);
+    // addTodoAction(33);
+    // dispatch(updateScreenData({"key2": e.target.value}));
   }
-  const handleSave = (e) => {
-    console.log(e.target);
-  }
-  const handleDelete = (e) => {
-    console.log(e.target);
-    // handleDropToTrashBin(null, data);
-  }
-  function saveScreenData() {
-    const screen_id = getUrlParameter('screen_id');
 
-    // Now you can use the screen_id variable in your component
-    console.log('Screen ID:', screen_id);
-    console.log(wpApiSettings);
-    const data = {
-      "id": screen_id,
-      "content": input,
-      "date": Date.now(),
-      "status": 1,
-    }
-    fetch('http://localhost/wordpress/wp-json/bl/v1/save-screen/' + screen_id, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-WP-Nonce': wpApiSettings.nonce // Nonce for authentication (assuming wpApiSettings is available globally)
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-      console.log('response', response)
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Screen data saved successfully:', data);
-    })
-    .catch(error => {
-        console.error('Error saving screen data:', error);
-    });
-}
+  const handleDelete = (data) => {
+    dispatch(removeScreenData(data));
+  }
+
 
 
   return (
     <div ref={ref} style={{ ...style, opacity }} className="base draggable row">
       {/* {data.id} */}
-      {/* <span class="icon save-icon" onClick={saveScreenData}>Save</span> */}
       <div className="columns component-wrapper">
         <div class="corner-elements">
-            <span class="icon save-icon" onClick={saveScreenData}><ComponentModal /></span>
-            <span class="icon trash-icon" onClick={handleDelete}>&#10539;</span>
+            <span class="icon save-icon"><ComponentModal component={data}/></span>
+            <span class="icon trash-icon" onClick={()=>handleDelete(data)}>&#10539;</span>
         </div>
         
-        <input type="text" className="" placeholder="Enter text" onChange={handleInput} />
+        {/* <input type="text" className="" placeholder="Enter text" onChange={handleInput} /> */}
+        <h4>{data.val ?? "..."}</h4>
       </div>
       
       {/* <div className="columns">

@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 
 import DropZone from "./DropZone";
 import TrashDropZone from "./TrashDropZone";
 import SideBarItem from "./SideBarItem";
 import ScreenItem from "./ScreenItem";
 import Row from "./Row";
+import UpdateButton from "./UpdateButton";
 import initialData from "./initial-data";
 import {
   handleMoveWithinParent,
@@ -12,16 +13,61 @@ import {
   handleMoveSidebarComponentIntoParent,
   handleRemoveItemFromLayout
 } from "./helpers";
+import {sortScreenData} from "../store/actions/screen";
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../store/store';
 
 import { SIDEBAR_ITEMS, SIDEBAR_ITEM, COMPONENT, COLUMN } from "./constants";
 import shortid from "shortid";
 
-const Container = () => {
+const Container = (() => {
   const initialLayout = initialData.layout;
   const initialComponents = initialData.components;
   const initialScreens = initialData.screens;
   const [layout, setLayout] = useState(initialLayout);
   const [components, setComponents] = useState(initialComponents);
+
+  const dispatch = useAppDispatch();
+  const store = useSelector((state) => state.screen);
+  console.log('layout', layout)
+
+  const handleSorting = useCallback(
+    (layout) => {
+      const rows = store?.data?.bl_screen_data ?? [];
+      const layout2 = layout.map(row =>({id: row.id, type: row.type, val: row.val}));
+      const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
+      if (!areArraysEqual) {
+        dispatch(sortScreenData(layout));
+        console.log('########call sort', layout)
+      }
+    },
+    [layout]
+  );
+
+
+  useEffect(() => {
+    const rows = store?.data?.bl_screen_data ?? [];
+      const layout2 = layout.map(row =>({id: row.id, type: row.type, val: row.val}));
+      const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
+      if (!areArraysEqual) {
+        // dispatch(sortScreenData(layout));
+        // handleSorting(layout);
+        console.log('########call sort', layout)
+      }
+  }, [layout]);
+
+  useEffect(() => {
+    let rows = store?.data?.bl_screen_data ?? [];
+    if(rows.length > 0) {
+      rows = rows.map(row => {
+        return {
+          ...row,
+          children: row
+        }
+      });
+      setLayout(rows);
+    }
+  }, [store]);
 
   const handleDropToTrashBin = useCallback(
     (dropZone, item) => {
@@ -33,9 +79,8 @@ const Container = () => {
 
   const handleDrop = useCallback(
     (dropZone, item) => {
-      console.log('dropZone', dropZone)
-      console.log('item2', item)
-
+      console.log('item', item)
+      // handleSorting()
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
@@ -59,7 +104,6 @@ const Container = () => {
           ...components,
           [newComponent.id]: newComponent
         });
-        console.log('components', components)
         setLayout(
           handleMoveSidebarComponentIntoParent(
             layout,
@@ -106,7 +150,6 @@ const Container = () => {
           newItem
         )
       );
-      console.log('layout, components', layout, components)
     },
     [layout, components]
   );
@@ -124,19 +167,11 @@ const Container = () => {
     );
   };
 
-  // dont use index for key when mapping over items
-  // causes this issue - https://github.com/react-dnd/react-dnd/issues/342
-  // <div className="sideBar" >
-  //   <h2>Screens</h2>
-  //   {initialScreens.map((sideBarItem, index) => (
-  //     <ScreenItem key={sideBarItem.id} data={sideBarItem} />
-  //   ))}
-  // </div>
   return (
     <div className="dnd-body">
       
       <div className="pageContainer">
-        <h2>Title: Screen 1 Content</h2>
+        <h2>Title: {store?.data?.title ?? ""}</h2>
         <div className="page">
           {layout.map((row, index) => {
             const currentPath = `${index}`;
@@ -165,15 +200,15 @@ const Container = () => {
           />
         </div>
 
-        <TrashDropZone
+        {/* <TrashDropZone
           data={{
             layout
           }}
           onDrop={handleDropToTrashBin}
-        />
+        /> */}
       </div>
       <div className="sideBar">
-      <button className='save-icon'>Update</button>
+        <UpdateButton/>
         <h2>Components</h2>
         {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => (
           <SideBarItem key={sideBarItem.id} data={sideBarItem} />
@@ -181,5 +216,5 @@ const Container = () => {
       </div>
     </div>
   );
-};
+});
 export default Container;

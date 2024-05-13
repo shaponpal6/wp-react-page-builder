@@ -12,6 +12,7 @@ const Column = ({ data, components, handleDrop, path }) => {
     item: {
       type: COLUMN,
       id: data.id,
+      val: data.val ?? "",
       children: data.children,
       path
     },

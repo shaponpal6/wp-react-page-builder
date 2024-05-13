@@ -1,6 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 // import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import {fetchScreenData, updateScreenData} from "../store/actions/screen";
+import { useSelector } from 'react-redux';
+// import { fetchData } from '../store/actions';
+import { useAppDispatch } from '../store/store';
+import Component from './Component';
 
 const customStyles = {
   content: {
@@ -18,10 +23,19 @@ const customStyles = {
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#bl-react-page-builder');
 
-function ComponentModal() {
+function ComponentModal({component}) {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [input, setInputValue]= useState('');
+  const [input, setInputValue]= useState("");
+  const [row, setRow]= useState({});
+  const [data, setData]= useState(component);
+  const dispatch = useAppDispatch();
+  // const { loading, data: data2, error } = useSelector((state) => state);
+  const store = useSelector((state) => state.screen);
+
+  useEffect(() => {
+    setInputValue(component.val ?? "");
+  }, [])
 
   function openModal() {
     setIsOpen(true);
@@ -36,10 +50,16 @@ function ComponentModal() {
     setIsOpen(false);
   }
 
-  const handleInput = (e) => {
-    console.log(e.target.value);
+  const handleInput = useCallback((e) => {
     setInputValue(e.target.value);
-  }
+    setRow({id: component?.id ?? Date.now(), type: component?.type ?? 'text', val: input});
+  }, [input])
+  
+  const handleSave = useCallback((e) => {
+    e.preventDefault();
+    setIsOpen(false);
+    return dispatch(updateScreenData(row));
+  }, [input]);
 
   return (
     <div>
@@ -50,13 +70,15 @@ function ComponentModal() {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Edit Component"
+        className="modal"
+        overlayClassName="overlay"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <div>Edit Component</div>
+        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Edit {component.type ?? ""} Component</h2>
+        <button class="top-right-corner" onClick={closeModal}><span class="icon trash-icon">&#10539;</span></button>
+        {/* <div>Edit Component</div> */}
         <form>
-        <input type="text" className="" placeholder="Enter text" onChange={handleInput} />
-          <button>Save</button>
+          <input type="text" className="" placeholder="Enter text" onChange={handleInput} value={input} />
+          <button class="bottom-right-corner" onClick={handleSave}>Save</button>
         </form>
       </Modal>
     </div>

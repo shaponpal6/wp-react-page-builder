@@ -9,6 +9,7 @@ export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),
     type: SIDEBAR_ITEM,
+    val: "",
     component: {
       type: "input",
       content: "Some input"
@@ -17,6 +18,7 @@ export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),
     type: SIDEBAR_ITEM,
+    val: "",
     component: {
       type: "name",
       content: "Some name"
@@ -25,6 +27,7 @@ export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),
     type: SIDEBAR_ITEM,
+    val: "",
     component: {
       type: "email",
       content: "Some email"
@@ -33,6 +36,7 @@ export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),
     type: SIDEBAR_ITEM,
+    val: "",
     component: {
       type: "phone",
       content: "Some phone"
@@ -41,6 +45,7 @@ export const SIDEBAR_ITEMS = [
   {
     id: shortid.generate(),
     type: SIDEBAR_ITEM,
+    val: "",
     component: {
       type: "image",
       content: "Some image"
