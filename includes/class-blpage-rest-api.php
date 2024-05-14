@@ -70,7 +70,7 @@ function custom_get_single_screen($request) {
     if (!$screen || $screen->post_type !== 'screen') {
         return new WP_Error('screen_not_found', 'Screen not found', array('status' => 404));
     }
-	$metadata = get_post_meta((int)$screen_id, 'bl_screen_data', true);
+	$metadata = get_post_meta((int) $screen_id, 'bl_screen_data', true);
 	// return new WP_REST_Response($metadata, 200);
     $response = array(
         'id'         => $screen->ID,
@@ -81,7 +81,7 @@ function custom_get_single_screen($request) {
         // Add more fields as needed
     );
 
-    return new WP_REST_Response($response, 200);
+    return new WP_REST_Response(['data' => ['status' => 200, 'data' => $response]], 200);
 }
 
 function custom_save_screen_data($request) {

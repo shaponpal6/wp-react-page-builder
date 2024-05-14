@@ -100,12 +100,18 @@ class Blpage_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blpage-admin.js'.'?version='.time(), array( 'jquery' ), $this->version, false );
 		wp_enqueue_script('bl-react-app-js',  BLPAGE_PATH . 'build/index.js'.'?version='.time(), array('wp-element'), '1.0', true);
 		// Pass wpApiSettings to the JavaScript file
+		// Get the current page URL with query string
+		$current_url = $_SERVER["REQUEST_URI"];
+		$query_params = parse_url($current_url, PHP_URL_QUERY);
+		parse_str($query_params, $query_array);
+		$screen_id = isset($query_array['screen_id']) ? $query_array['screen_id'] : null;
 		wp_localize_script(
 			'bl-react-app-js',
 			'wpApiSettings',
 			array(
 				'root' => esc_url_raw( rest_url() ),
-				'nonce' => wp_create_nonce( 'wp_rest' )
+				'nonce' => wp_create_nonce( 'wp_rest' ),
+				'screen_id' => $screen_id,
 			)
 		);
 

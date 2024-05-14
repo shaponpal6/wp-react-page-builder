@@ -15,12 +15,12 @@ function DndApp() {
 
   useEffect(() => {
     // dispatch(fetchData());
-    dispatch(fetchScreenData(22));
+    if(wpApiSettings.screen_id) dispatch(fetchScreenData(wpApiSettings.screen_id));
   }, [dispatch]);
   return (
     <div className="App">
       <DndProvider backend={Backend}>
-        {store.loading ? "Loading..." : <Example />}
+        {store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. '+store.error : <Example />}
       </DndProvider>
     </div>
   );

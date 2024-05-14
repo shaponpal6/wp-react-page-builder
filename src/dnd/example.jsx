@@ -71,15 +71,15 @@ const Container = (() => {
   const handleDrop = useCallback(
     (dropZone, item) => {
       console.log('item', item)
-      handleSorting(layout)
+      // handleSorting(layout)
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
+      let newLayout = layout;
 
-      const newItem = { id: item.id, type: item.type };
+      const newItem = { id: item.id, type: item.type, val: item.id };
       if (item.type === COLUMN) {
         newItem.children = item.children;
       }
-
       // sidebar into
       if (item.type === SIDEBAR_ITEM) {
         // 1. Move sidebar item into page
@@ -89,22 +89,22 @@ const Container = (() => {
         };
         const newItem = {
           id: newComponent.id,
-          type: COMPONENT
+          type: COMPONENT,
+          val: newComponent.id
         };
         setComponents({
           ...components,
           [newComponent.id]: newComponent
         });
-        setLayout(
-          handleMoveSidebarComponentIntoParent(
-            layout,
-            splitDropZonePath,
-            newItem
-          )
+        newLayout = handleMoveSidebarComponentIntoParent(
+          layout,
+          splitDropZonePath,
+          newItem
         );
+        setLayout(newLayout);
+        handleSorting(newLayout);
         return;
       }
-
       // move down here since sidebar items dont have path
       const splitItemPath = item.path.split("-");
       const pathToItem = splitItemPath.slice(0, -1).join("-");
@@ -113,9 +113,9 @@ const Container = (() => {
       if (splitItemPath.length === splitDropZonePath.length) {
         // 2.a. move within parent
         if (pathToItem === pathToDropZone) {
-          setLayout(
-            handleMoveWithinParent(layout, splitDropZonePath, splitItemPath)
-          );
+          const newLayout = handleMoveWithinParent(layout, splitDropZonePath, splitItemPath);
+          setLayout(newLayout);
+          handleSorting(newLayout);
           return;
         }
 
@@ -132,6 +132,7 @@ const Container = (() => {
         return;
       }
 
+      
       // 3. Move + Create
       setLayout(
         handleMoveToDifferentParent(

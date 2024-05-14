@@ -4,11 +4,16 @@ export const fetchScreenData = (payload) => async (dispatch) => {
     dispatch(fetchDataStart());
     try {
           const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens/'+payload);
-          const data = await response.json();
+          const responseData = await response.json();
+          console.log('###data', responseData)
     //   const data = payload;
-      dispatch(fetchDataSuccess(data));
+      if(responseData.data.status === 200 && responseData.data.data){
+        dispatch(fetchDataSuccess(responseData.data.data));
+      }else{
+        dispatch(fetchDataFailure(responseData.message));
+      }
     } catch (error) {
-    //   dispatch(fetchDataFailure(error.message));
+      dispatch(fetchDataFailure(error.message));
     }
   };
 

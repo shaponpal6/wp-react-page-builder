@@ -14,7 +14,8 @@ function UpdateButton() {
   };
 
   function saveScreenData() {
-    const screen_id = getUrlParameter('screen_id');
+    // const screen_id = getUrlParameter('screen_id');
+    const screen_id = wpApiSettings.screen_id;
     console.log('screenData', screenData)
     fetch('http://localhost/wordpress/wp-json/bl/v1/save-screen/' + screen_id, {
       method: 'POST',

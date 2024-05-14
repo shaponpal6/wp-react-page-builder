@@ -73,11 +73,11 @@ function ComponentModal({component}) {
         className="modal"
         overlayClassName="overlay"
       >
-        <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Edit {component.type ?? ""} Component</h2>
+        {/* <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Edit {component.type ?? ""} Component</h2> */}
         <button class="top-right-corner" onClick={closeModal}><span class="icon trash-icon">&#10539;</span></button>
         {/* <div>Edit Component</div> */}
         <form>
-          <input type="text" className="" placeholder="Enter text" onChange={handleInput} value={input} />
+          <input type="text" className="input-box" placeholder="Enter text" onChange={handleInput} value={input} />
           <button class="bottom-right-corner" onClick={handleSave}>Save</button>
         </form>
       </Modal>

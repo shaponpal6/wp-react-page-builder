@@ -339,7 +339,6 @@ react_modal__WEBPACK_IMPORTED_MODULE_1___default().setAppElement('#bl-react-page
 function ComponentModal({
   component
 }) {
-  var _component$type2;
   let subtitle;
   const [modalIsOpen, setIsOpen] = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false);
   const [input, setInputValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
@@ -387,16 +386,14 @@ function ComponentModal({
     contentLabel: "Edit Component",
     className: "modal",
     overlayClassName: "overlay"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
-    ref: _subtitle => subtitle = _subtitle
-  }, "Edit ", (_component$type2 = component.type) !== null && _component$type2 !== void 0 ? _component$type2 : "", " Component"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     class: "top-right-corner",
     onClick: closeModal
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     class: "icon trash-icon"
   }, "\u292B")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
     type: "text",
-    className: "",
+    className: "input-box",
     placeholder: "Enter text",
     onChange: handleInput,
     value: input
@@ -780,7 +777,8 @@ function UpdateButton() {
   };
   function saveScreenData() {
     var _screenData$data$bl_s;
-    const screen_id = getUrlParameter('screen_id');
+    // const screen_id = getUrlParameter('screen_id');
+    const screen_id = wpApiSettings.screen_id;
     console.log('screenData', screenData);
     fetch('http://localhost/wordpress/wp-json/bl/v1/save-screen/' + screen_id, {
       method: 'POST',
@@ -964,17 +962,18 @@ const Container = () => {
   }, [layout]);
   const handleDrop = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
     console.log('item', item);
-    handleSorting(layout);
+    // handleSorting(layout)
     const splitDropZonePath = dropZone.path.split("-");
     const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
+    let newLayout = layout;
     const newItem = {
       id: item.id,
-      type: item.type
+      type: item.type,
+      val: item.id
     };
     if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.COLUMN) {
       newItem.children = item.children;
     }
-
     // sidebar into
     if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEM) {
       // 1. Move sidebar item into page
@@ -984,16 +983,18 @@ const Container = () => {
       };
       const newItem = {
         id: newComponent.id,
-        type: _constants__WEBPACK_IMPORTED_MODULE_11__.COMPONENT
+        type: _constants__WEBPACK_IMPORTED_MODULE_11__.COMPONENT,
+        val: newComponent.id
       };
       setComponents({
         ...components,
         [newComponent.id]: newComponent
       });
-      setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveSidebarComponentIntoParent)(layout, splitDropZonePath, newItem));
+      newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveSidebarComponentIntoParent)(layout, splitDropZonePath, newItem);
+      setLayout(newLayout);
+      handleSorting(newLayout);
       return;
     }
-
     // move down here since sidebar items dont have path
     const splitItemPath = item.path.split("-");
     const pathToItem = splitItemPath.slice(0, -1).join("-");
@@ -1002,7 +1003,9 @@ const Container = () => {
     if (splitItemPath.length === splitDropZonePath.length) {
       // 2.a. move within parent
       if (pathToItem === pathToDropZone) {
-        setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveWithinParent)(layout, splitDropZonePath, splitItemPath));
+        const newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveWithinParent)(layout, splitDropZonePath, splitItemPath);
+        setLayout(newLayout);
+        handleSorting(newLayout);
         return;
       }
 
@@ -1305,13 +1308,13 @@ function DndApp() {
   const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useSelector)(state => state.screen);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // dispatch(fetchData());
-    dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_2__.fetchScreenData)(22));
+    if (wpApiSettings.screen_id) dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_2__.fetchScreenData)(wpApiSettings.screen_id));
   }, [dispatch]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "App"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_dnd__WEBPACK_IMPORTED_MODULE_5__.DndProvider, {
     backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }, store.loading ? "Loading..." : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_example__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
+  }, store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. ' + store.error : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_example__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DndApp);
 
@@ -1490,11 +1493,16 @@ const fetchScreenData = payload => async dispatch => {
   dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataStart)());
   try {
     const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens/' + payload);
-    const data = await response.json();
+    const responseData = await response.json();
+    console.log('###data', responseData);
     //   const data = payload;
-    dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataSuccess)(data));
+    if (responseData.data.status === 200 && responseData.data.data) {
+      dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataSuccess)(responseData.data.data));
+    } else {
+      dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataFailure)(responseData.message));
+    }
   } catch (error) {
-    //   dispatch(fetchDataFailure(error.message));
+    dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataFailure)(error.message));
   }
 };
 const updateScreenData = payload => async dispatch => {
