@@ -13,9 +13,10 @@ import {
   handleMoveSidebarComponentIntoParent,
   handleRemoveItemFromLayout
 } from "./helpers";
-import {sortScreenData} from "../store/actions/screen";
+import {sortScreenData, removeScreenData} from "../store/actions/screen";
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../store/store';
+
 
 import { SIDEBAR_ITEMS, SIDEBAR_ITEM, COMPONENT, COLUMN } from "./constants";
 import shortid from "shortid";
@@ -37,6 +38,7 @@ const Container = (() => {
       const layout2 = layout.map(row =>({id: row.id, type: row.type, val: row.val}));
       const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
       if (!areArraysEqual) {
+        // dispatch(removeScreenData(layout));
         dispatch(sortScreenData(layout));
         console.log('########call sort', layout)
       }
@@ -44,17 +46,6 @@ const Container = (() => {
     [layout]
   );
 
-
-  useEffect(() => {
-    const rows = store?.data?.bl_screen_data ?? [];
-      const layout2 = layout.map(row =>({id: row.id, type: row.type, val: row.val}));
-      const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
-      if (!areArraysEqual) {
-        // dispatch(sortScreenData(layout));
-        // handleSorting(layout);
-        console.log('########call sort', layout)
-      }
-  }, [layout]);
 
   useEffect(() => {
     let rows = store?.data?.bl_screen_data ?? [];
@@ -80,7 +71,7 @@ const Container = (() => {
   const handleDrop = useCallback(
     (dropZone, item) => {
       console.log('item', item)
-      // handleSorting()
+      handleSorting(layout)
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
 
@@ -171,7 +162,10 @@ const Container = (() => {
     <div className="dnd-body">
       
       <div className="pageContainer">
-        <h2>Title: {store?.data?.title ?? ""}</h2>
+        <div className="page-head-wrapper">
+          <h2>Title: {store?.data?.title ?? ""}</h2>
+          <h2>Status: {store?.data?.status ?? "Unpublish"}</h2>
+        </div>
         <div className="page">
           {layout.map((row, index) => {
             const currentPath = `${index}`;

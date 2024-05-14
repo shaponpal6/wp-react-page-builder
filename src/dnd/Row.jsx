@@ -69,7 +69,8 @@ const Row = ({ data, components, handleDrop, path, handleDropToTrashBin }) => {
       <div className="columns component-wrapper">
         <div class="corner-elements">
             <span class="icon save-icon"><ComponentModal component={data}/></span>
-            <span class="icon trash-icon" onClick={()=>handleDelete(data)}>&#10539;</span>
+            <span class="icon"><button class="trash-icon" onClick={()=>handleDelete(data)}>&#10539;</button></span>
+            
         </div>
         
         {/* <input type="text" className="" placeholder="Enter text" onChange={handleInput} /> */}

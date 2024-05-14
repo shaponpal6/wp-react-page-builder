@@ -33,14 +33,16 @@ function UpdateButton() {
       })
       .then(data => {
         console.log('Screen data saved successfully:', data);
+        alert('Screen data saved successfully');
       })
       .catch(error => {
         console.error('Error saving screen data:', error);
+        alert('Error saving screen data:'+ error.message);
       });
   }
   return (
     <div>
-      <button className='save-icon' onClick={saveScreenData}>Update</button>
+      <button className='save-icon update-button' onClick={saveScreenData}>Update</button>
     </div>
   )
 }

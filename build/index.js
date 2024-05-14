@@ -607,9 +607,11 @@ const Row = ({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ComponentModal__WEBPACK_IMPORTED_MODULE_4__["default"], {
     component: data
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    class: "icon trash-icon",
+    class: "icon"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    class: "trash-icon",
     onClick: () => handleDelete(data)
-  }, "\u292B")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, (_data$val = data.val) !== null && _data$val !== void 0 ? _data$val : "...")));
+  }, "\u292B"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, (_data$val = data.val) !== null && _data$val !== void 0 ? _data$val : "...")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Row);
 
@@ -795,12 +797,14 @@ function UpdateButton() {
       return response.json();
     }).then(data => {
       console.log('Screen data saved successfully:', data);
+      alert('Screen data saved successfully');
     }).catch(error => {
       console.error('Error saving screen data:', error);
+      alert('Error saving screen data:' + error.message);
     });
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "save-icon",
+    className: "save-icon update-button",
     onClick: saveScreenData
   }, "Update"));
 }
@@ -917,7 +921,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Container = () => {
-  var _store$data$title;
+  var _store$data$title, _store$data$status;
   const initialLayout = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].layout;
   const initialComponents = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].components;
   const initialScreens = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].screens;
@@ -936,28 +940,14 @@ const Container = () => {
     }));
     const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
     if (!areArraysEqual) {
+      // dispatch(removeScreenData(layout));
       dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_9__.sortScreenData)(layout));
       console.log('########call sort', layout);
     }
   }, [layout]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     var _store$data$bl_screen2;
-    const rows = (_store$data$bl_screen2 = store?.data?.bl_screen_data) !== null && _store$data$bl_screen2 !== void 0 ? _store$data$bl_screen2 : [];
-    const layout2 = layout.map(row => ({
-      id: row.id,
-      type: row.type,
-      val: row.val
-    }));
-    const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
-    if (!areArraysEqual) {
-      // dispatch(sortScreenData(layout));
-      // handleSorting(layout);
-      console.log('########call sort', layout);
-    }
-  }, [layout]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    var _store$data$bl_screen3;
-    let rows = (_store$data$bl_screen3 = store?.data?.bl_screen_data) !== null && _store$data$bl_screen3 !== void 0 ? _store$data$bl_screen3 : [];
+    let rows = (_store$data$bl_screen2 = store?.data?.bl_screen_data) !== null && _store$data$bl_screen2 !== void 0 ? _store$data$bl_screen2 : [];
     if (rows.length > 0) {
       rows = rows.map(row => {
         return {
@@ -974,7 +964,7 @@ const Container = () => {
   }, [layout]);
   const handleDrop = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
     console.log('item', item);
-    // handleSorting()
+    handleSorting(layout);
     const splitDropZonePath = dropZone.path.split("-");
     const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
     const newItem = {
@@ -1039,7 +1029,9 @@ const Container = () => {
     className: "dnd-body"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "pageContainer"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Title: ", (_store$data$title = store?.data?.title) !== null && _store$data$title !== void 0 ? _store$data$title : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "page-head-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Title: ", (_store$data$title = store?.data?.title) !== null && _store$data$title !== void 0 ? _store$data$title : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Status: ", (_store$data$status = store?.data?.status) !== null && _store$data$status !== void 0 ? _store$data$status : "Unpublish")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "page"
   }, layout.map((row, index) => {
     const currentPath = `${index}`;
@@ -1513,6 +1505,8 @@ const updateScreenData = payload => async dispatch => {
   }
 };
 const removeScreenData = payload => async dispatch => {
+  // console.log('payload', payload)
+  // return ;
   try {
     dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.removeScreenDataSuccess)(payload));
   } catch (error) {
@@ -1520,7 +1514,7 @@ const removeScreenData = payload => async dispatch => {
   }
 };
 const sortScreenData = payload => async dispatch => {
-  console.log('@@@payload', payload);
+  console.log('111111111111@@@payload', payload, dispatch);
   try {
     dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.sortingScreenDataSuccess)(payload));
   } catch (error) {
@@ -1640,10 +1634,18 @@ const screenSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
       console.log('@@deepData', deepData);
       // let bl_screen_data =  deepData?.bl_screen_data ?? [];
       let bl_screen_data = payloadData;
+      if (bl_screen_data && bl_screen_data.length > 0) {
+        bl_screen_data = bl_screen_data.map(item => ({
+          id: item.id,
+          type: item.type,
+          val: item.val
+        }));
+      }
       // if( bl_screen_data.length){
       //   bl_screen_data = bl_screen_data.filter(row => row.id !== payloadData.id);
       // };
       // state.data = {...data, "data":{...data.data, "bl_screen_data": bl_screen_data}};
+      console.log('Sort bl_screen_data', bl_screen_data);
       return {
         ...state,
         data: {

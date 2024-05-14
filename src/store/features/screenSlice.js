@@ -83,10 +83,14 @@ const screenSlice = createSlice({
       console.log('@@deepData', deepData)
       // let bl_screen_data =  deepData?.bl_screen_data ?? [];
       let bl_screen_data =  payloadData;
+      if(bl_screen_data && bl_screen_data.length > 0) {
+        bl_screen_data = bl_screen_data.map(item => ({id: item.id, type: item.type, val: item.val}));
+      }
       // if( bl_screen_data.length){
       //   bl_screen_data = bl_screen_data.filter(row => row.id !== payloadData.id);
       // };
       // state.data = {...data, "data":{...data.data, "bl_screen_data": bl_screen_data}};
+      console.log('Sort bl_screen_data', bl_screen_data)
       return {
         ...state,
         data: {...state.data, bl_screen_data: bl_screen_data},

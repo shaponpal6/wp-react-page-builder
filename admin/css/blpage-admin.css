@@ -19,12 +19,20 @@ body {
 }
 
 .sideBarItem {
-  border: 1px solid #000;
-  border-radius: 3px;
-  height: 30px;
-  padding: 10px;
-  margin-top: 10px;
-  background: #ccc;
+  border: 0px solid #2de4e4;
+    border-radius: 1px;
+    height: 30px;
+    padding: 10px;
+    margin-top: 10px;
+    background: #f6f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: capitalize;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    cursor: move;
 }
 
 .page {
@@ -74,7 +82,7 @@ body {
 
 .columns {
   display: flex;
-  padding: 0 20px;
+  padding: 10px 20px;
 }
 
 .columnContainer {
@@ -88,8 +96,10 @@ body {
 }
 
 .row {
-  border: 1px solid red;
-  padding: 0;
+  border: 0px solid red;
+    padding: 0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2px;
 }
 
 .trashDropZone {
@@ -138,8 +148,8 @@ body {
   content: '\f182'; 
 } */
 
-.corner-elements .save-icon {
-  border: 1px solid;
+.corner-elements .save-icon, .save-icon {
+  border: 0px solid;
   padding: 1px 2px;
   border-radius: 2px;
   background: #04AA6D;
@@ -148,9 +158,21 @@ body {
   display: inline-block;
 }
 
+.update-button{
+  padding: 10px 20px;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+}
+.page-head-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
 .corner-elements .trash-icon {
-  border: 1px solid;
-  padding: 1px 2px;
+  border: 0px solid;
+  padding: 2px 4px;
   border-radius: 2px;
   background: #f44336;
   color: #fff;

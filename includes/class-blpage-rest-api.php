@@ -76,6 +76,7 @@ function custom_get_single_screen($request) {
         'id'         => $screen->ID,
         'title'      => $screen->post_title,
         'content'    => $screen->post_content,
+        'status'    => $screen->post_status ?? 'draft',
 		'bl_screen_data'    => $metadata ?? [],
         // Add more fields as needed
     );
