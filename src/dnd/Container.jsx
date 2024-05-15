@@ -162,7 +162,7 @@ const Container = (() => {
   return (
     <div className="dnd-body">
       
-      <div className="pageContainer">
+      <div className="pageContainer resizable">
         <div className="page-head-wrapper">
           <h2>Title: {store?.data?.title ?? ""}</h2>
           <h2>Status: {store?.data?.status ?? "Unpublish"}</h2>
@@ -202,12 +202,18 @@ const Container = (() => {
           onDrop={handleDropToTrashBin}
         /> */}
       </div>
-      <div className="sideBar">
+      <div className="sideBar resizable">
         <UpdateButton/>
-        <h2>Components</h2>
+        {/* <h2>Components</h2> */}
+        <div className="component_search_container">
+          <input type="text" className="component_search_box" placeholder="Search Components" />
+          {/* <button class="bottom-right-corner" onClick={handleSave}>Save</button> */}
+        </div>
+        <div className="component_container">
         {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => (
           <SideBarItem key={sideBarItem.id} data={sideBarItem} />
         ))}
+        </div>
       </div>
     </div>
   );

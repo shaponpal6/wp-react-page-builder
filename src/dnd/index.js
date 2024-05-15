@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 // import ReactDOM from "react-dom";
 import Backend from "react-dnd-html5-backend";
-import Example from "./example";
+import Container from "./Container";
 import { DndProvider } from "react-dnd";
 import {fetchScreenData} from "../store/actions/screen";
 import { useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ function DndApp() {
   return (
     <div className="App">
       <DndProvider backend={Backend}>
-        {store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. '+store.error : <Example />}
+        {store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. '+store.error : <Container />}
       </DndProvider>
     </div>
   );

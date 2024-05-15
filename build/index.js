@@ -406,6 +406,204 @@ function ComponentModal({
 
 /***/ }),
 
+/***/ "./src/dnd/Container.jsx":
+/*!*******************************!*\
+  !*** ./src/dnd/Container.jsx ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropZone */ "./src/dnd/DropZone.jsx");
+/* harmony import */ var _TrashDropZone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TrashDropZone */ "./src/dnd/TrashDropZone.jsx");
+/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBarItem */ "./src/dnd/SideBarItem.jsx");
+/* harmony import */ var _ScreenItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScreenItem */ "./src/dnd/ScreenItem.jsx");
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row */ "./src/dnd/Row.jsx");
+/* harmony import */ var _UpdateButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateButton */ "./src/dnd/UpdateButton.jsx");
+/* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/dnd/initial-data.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/dnd/helpers.js");
+/* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
+/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_12__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Container = () => {
+  var _store$data$title, _store$data$status;
+  const initialLayout = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].layout;
+  const initialComponents = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].components;
+  const initialScreens = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].screens;
+  const [layout, setLayout] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialLayout);
+  const [components, setComponents] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialComponents);
+  const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_10__.useAppDispatch)();
+  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_13__.useSelector)(state => state.screen);
+  console.log('layout', layout);
+  const handleSorting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(layout => {
+    var _store$data$bl_screen;
+    const rows = (_store$data$bl_screen = store?.data?.bl_screen_data) !== null && _store$data$bl_screen !== void 0 ? _store$data$bl_screen : [];
+    const layout2 = layout.map(row => ({
+      id: row.id,
+      type: row.type,
+      val: row.val
+    }));
+    const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
+    if (!areArraysEqual) {
+      // dispatch(removeScreenData(layout));
+      dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_9__.sortScreenData)(layout));
+      console.log('########call sort', layout);
+    }
+  }, [layout]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    var _store$data$bl_screen2;
+    let rows = (_store$data$bl_screen2 = store?.data?.bl_screen_data) !== null && _store$data$bl_screen2 !== void 0 ? _store$data$bl_screen2 : [];
+    if (rows.length > 0) {
+      rows = rows.map(row => {
+        return {
+          ...row,
+          children: row
+        };
+      });
+      setLayout(rows);
+    }
+  }, [store]);
+  const handleDropToTrashBin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
+    const splitItemPath = item.path.split("-");
+    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleRemoveItemFromLayout)(layout, splitItemPath));
+  }, [layout]);
+  const handleDrop = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
+    console.log('item', item);
+    // handleSorting(layout)
+    const splitDropZonePath = dropZone.path.split("-");
+    const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
+    let newLayout = layout;
+    const newItem = {
+      id: item.id,
+      type: item.type,
+      val: item.id
+    };
+    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.COLUMN) {
+      newItem.children = item.children;
+    }
+    // sidebar into
+    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEM) {
+      // 1. Move sidebar item into page
+      const newComponent = {
+        id: shortid__WEBPACK_IMPORTED_MODULE_12___default().generate(),
+        ...item.component
+      };
+      const newItem = {
+        id: newComponent.id,
+        type: _constants__WEBPACK_IMPORTED_MODULE_11__.COMPONENT,
+        val: newComponent.id
+      };
+      setComponents({
+        ...components,
+        [newComponent.id]: newComponent
+      });
+      newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveSidebarComponentIntoParent)(layout, splitDropZonePath, newItem);
+      setLayout(newLayout);
+      handleSorting(newLayout);
+      return;
+    }
+    // move down here since sidebar items dont have path
+    const splitItemPath = item.path.split("-");
+    const pathToItem = splitItemPath.slice(0, -1).join("-");
+
+    // 2. Pure move (no create)
+    if (splitItemPath.length === splitDropZonePath.length) {
+      // 2.a. move within parent
+      if (pathToItem === pathToDropZone) {
+        const newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveWithinParent)(layout, splitDropZonePath, splitItemPath);
+        setLayout(newLayout);
+        handleSorting(newLayout);
+        return;
+      }
+
+      // 2.b. OR move different parent
+      // TODO FIX columns. item includes children
+      setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
+      return;
+    }
+
+    // 3. Move + Create
+    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
+  }, [layout, components]);
+  const renderRow = (row, currentPath) => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      key: row.id,
+      data: row,
+      handleDrop: handleDrop,
+      handleDropToTrashBin: handleDropToTrashBin,
+      components: components,
+      path: currentPath
+    });
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "dnd-body"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pageContainer resizable"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "page-head-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Title: ", (_store$data$title = store?.data?.title) !== null && _store$data$title !== void 0 ? _store$data$title : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Status: ", (_store$data$status = store?.data?.status) !== null && _store$data$status !== void 0 ? _store$data$status : "Unpublish")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "page"
+  }, layout.map((row, index) => {
+    const currentPath = `${index}`;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+      key: row.id
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      data: {
+        path: currentPath,
+        childrenCount: layout.length
+      },
+      onDrop: handleDrop,
+      path: currentPath
+    }), renderRow(row, currentPath));
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    data: {
+      path: `${layout.length}`,
+      childrenCount: layout.length
+    },
+    onDrop: handleDrop,
+    isLast: true
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sideBar resizable"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_UpdateButton__WEBPACK_IMPORTED_MODULE_6__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "component_search_container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "text",
+    className: "component_search_box",
+    placeholder: "Search Components"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "component_container"
+  }, Object.values(_constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEMS).map((sideBarItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SideBarItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    key: sideBarItem.id,
+    data: sideBarItem
+  })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Container);
+
+/***/ }),
+
 /***/ "./src/dnd/DropZone.jsx":
 /*!******************************!*\
   !*** ./src/dnd/DropZone.jsx ***!
@@ -675,7 +873,15 @@ const SideBarItem = ({
     style: {
       opacity
     }
-  }, data.component.type);
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    class: data.component.icon
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sideBarItem__wraper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sideBarItem__name"
+  }, data.component.name), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "sideBarItem__description"
+  }, data.component.content)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SideBarItem);
 
@@ -835,234 +1041,130 @@ const COMPONENT = "component";
 const SIDEBAR_ITEMS = [{
   id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
   type: SIDEBAR_ITEM,
-  val: "",
   component: {
-    type: "input",
-    content: "Some input"
+    name: 'Text Block',
+    content: "Some input",
+    icon: 'dashicons dashicons-editor-paste-text',
+    type: "input"
   }
 }, {
   id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
   type: SIDEBAR_ITEM,
-  val: "",
   component: {
-    type: "name",
-    content: "Some name"
+    name: 'Single Image',
+    content: "Some name",
+    icon: 'dashicons dashicons-format-image',
+    type: "name"
   }
 }, {
   id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
   type: SIDEBAR_ITEM,
-  val: "",
   component: {
-    type: "email",
-    content: "Some email"
+    name: 'Image Gallery',
+    content: "Some email",
+    icon: 'dashicons dashicons-images-alt',
+    type: "email"
   }
 }, {
   id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
   type: SIDEBAR_ITEM,
-  val: "",
   component: {
-    type: "phone",
-    content: "Some phone"
+    name: 'Image Slider',
+    content: "Some phone",
+    icon: 'dashicons dashicons-slides',
+    type: "phone"
   }
 }, {
   id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
   type: SIDEBAR_ITEM,
-  val: "",
   component: {
-    type: "image",
-    content: "Some image"
+    name: 'Seperator',
+    content: "Some image",
+    icon: 'dashicons dashicons-minus',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Button',
+    content: "Some image",
+    icon: 'dashicons dashicons-button',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Tab',
+    content: "Some image",
+    icon: 'dashicons dashicons-table-row-after',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Testimonial',
+    content: "Some image",
+    icon: 'dashicons dashicons-testimonial',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Video Player',
+    content: "Some image",
+    icon: 'dashicons dashicons-format-video',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Youtube Player',
+    content: "Some image",
+    icon: 'dashicons dashicons-video-alt3',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Google Map',
+    content: "Some image",
+    icon: 'dashicons dashicons-admin-site-alt3',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Single Product',
+    content: "Some image",
+    icon: 'dashicons dashicons-feedback',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Product Slider',
+    content: "Some image",
+    icon: 'dashicons dashicons-images-alt2',
+    type: "image"
+  }
+}, {
+  id: shortid__WEBPACK_IMPORTED_MODULE_0___default().generate(),
+  type: SIDEBAR_ITEM,
+  component: {
+    name: 'Product List',
+    content: "Some image",
+    icon: 'dashicons dashicons-list-view',
+    type: "image"
   }
 }];
-
-/***/ }),
-
-/***/ "./src/dnd/example.jsx":
-/*!*****************************!*\
-  !*** ./src/dnd/example.jsx ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropZone */ "./src/dnd/DropZone.jsx");
-/* harmony import */ var _TrashDropZone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TrashDropZone */ "./src/dnd/TrashDropZone.jsx");
-/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBarItem */ "./src/dnd/SideBarItem.jsx");
-/* harmony import */ var _ScreenItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScreenItem */ "./src/dnd/ScreenItem.jsx");
-/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row */ "./src/dnd/Row.jsx");
-/* harmony import */ var _UpdateButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateButton */ "./src/dnd/UpdateButton.jsx");
-/* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/dnd/initial-data.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/dnd/helpers.js");
-/* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
-/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
-/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_12__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Container = () => {
-  var _store$data$title, _store$data$status;
-  const initialLayout = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].layout;
-  const initialComponents = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].components;
-  const initialScreens = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].screens;
-  const [layout, setLayout] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialLayout);
-  const [components, setComponents] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialComponents);
-  const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_10__.useAppDispatch)();
-  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_13__.useSelector)(state => state.screen);
-  console.log('layout', layout);
-  const handleSorting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(layout => {
-    var _store$data$bl_screen;
-    const rows = (_store$data$bl_screen = store?.data?.bl_screen_data) !== null && _store$data$bl_screen !== void 0 ? _store$data$bl_screen : [];
-    const layout2 = layout.map(row => ({
-      id: row.id,
-      type: row.type,
-      val: row.val
-    }));
-    const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
-    if (!areArraysEqual) {
-      // dispatch(removeScreenData(layout));
-      dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_9__.sortScreenData)(layout));
-      console.log('########call sort', layout);
-    }
-  }, [layout]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    var _store$data$bl_screen2;
-    let rows = (_store$data$bl_screen2 = store?.data?.bl_screen_data) !== null && _store$data$bl_screen2 !== void 0 ? _store$data$bl_screen2 : [];
-    if (rows.length > 0) {
-      rows = rows.map(row => {
-        return {
-          ...row,
-          children: row
-        };
-      });
-      setLayout(rows);
-    }
-  }, [store]);
-  const handleDropToTrashBin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
-    const splitItemPath = item.path.split("-");
-    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleRemoveItemFromLayout)(layout, splitItemPath));
-  }, [layout]);
-  const handleDrop = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
-    console.log('item', item);
-    // handleSorting(layout)
-    const splitDropZonePath = dropZone.path.split("-");
-    const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
-    let newLayout = layout;
-    const newItem = {
-      id: item.id,
-      type: item.type,
-      val: item.id
-    };
-    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.COLUMN) {
-      newItem.children = item.children;
-    }
-    // sidebar into
-    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEM) {
-      // 1. Move sidebar item into page
-      const newComponent = {
-        id: shortid__WEBPACK_IMPORTED_MODULE_12___default().generate(),
-        ...item.component
-      };
-      const newItem = {
-        id: newComponent.id,
-        type: _constants__WEBPACK_IMPORTED_MODULE_11__.COMPONENT,
-        val: newComponent.id
-      };
-      setComponents({
-        ...components,
-        [newComponent.id]: newComponent
-      });
-      newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveSidebarComponentIntoParent)(layout, splitDropZonePath, newItem);
-      setLayout(newLayout);
-      handleSorting(newLayout);
-      return;
-    }
-    // move down here since sidebar items dont have path
-    const splitItemPath = item.path.split("-");
-    const pathToItem = splitItemPath.slice(0, -1).join("-");
-
-    // 2. Pure move (no create)
-    if (splitItemPath.length === splitDropZonePath.length) {
-      // 2.a. move within parent
-      if (pathToItem === pathToDropZone) {
-        const newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveWithinParent)(layout, splitDropZonePath, splitItemPath);
-        setLayout(newLayout);
-        handleSorting(newLayout);
-        return;
-      }
-
-      // 2.b. OR move different parent
-      // TODO FIX columns. item includes children
-      setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
-      return;
-    }
-
-    // 3. Move + Create
-    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
-  }, [layout, components]);
-  const renderRow = (row, currentPath) => {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      key: row.id,
-      data: row,
-      handleDrop: handleDrop,
-      handleDropToTrashBin: handleDropToTrashBin,
-      components: components,
-      path: currentPath
-    });
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "dnd-body"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "pageContainer"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "page-head-wrapper"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Title: ", (_store$data$title = store?.data?.title) !== null && _store$data$title !== void 0 ? _store$data$title : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Status: ", (_store$data$status = store?.data?.status) !== null && _store$data$status !== void 0 ? _store$data$status : "Unpublish")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "page"
-  }, layout.map((row, index) => {
-    const currentPath = `${index}`;
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-      key: row.id
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      data: {
-        path: currentPath,
-        childrenCount: layout.length
-      },
-      onDrop: handleDrop,
-      path: currentPath
-    }), renderRow(row, currentPath));
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    data: {
-      path: `${layout.length}`,
-      childrenCount: layout.length
-    },
-    onDrop: handleDrop,
-    isLast: true
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "sideBar"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_UpdateButton__WEBPACK_IMPORTED_MODULE_6__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Components"), Object.values(_constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEMS).map((sideBarItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SideBarItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    key: sideBarItem.id,
-    data: sideBarItem
-  }))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Container);
 
 /***/ }),
 
@@ -1286,7 +1388,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/esm/index.js");
-/* harmony import */ var _example__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./example */ "./src/dnd/example.jsx");
+/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Container */ "./src/dnd/Container.jsx");
 /* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/common/DndProvider.js");
 /* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
@@ -1314,7 +1416,7 @@ function DndApp() {
     className: "App"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_dnd__WEBPACK_IMPORTED_MODULE_5__.DndProvider, {
     backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }, store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. ' + store.error : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_example__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
+  }, store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. ' + store.error : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DndApp);
 

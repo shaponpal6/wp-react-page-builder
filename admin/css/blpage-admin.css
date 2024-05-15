@@ -11,29 +11,79 @@ body {
 
 .sideBar {
   flex: 0 0 1;
-  width: 200px;
+  width: 28%;
   padding: 10px;
-  border-right: 1px solid #111;
-  height: 100vh;
-  background: #e1e1e1;
+  /* border-right: 1px solid #111; */
+  height: auto;
+  /* background: #e1e1e1; */
+  background: #fff;
 }
 
+
 .sideBarItem {
-  border: 0px solid #2de4e4;
+    border: 0px solid #2de4e4;
     border-radius: 1px;
-    height: 30px;
+    height: 50px;
     padding: 10px;
     margin-top: 10px;
     background: #f6f7f7;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    font-size: 24px;
+    font-size: 14px;
     font-weight: 400;
     text-transform: capitalize;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     cursor: move;
+    background: #f6f6f6;
 }
+.sideBarItem span {
+    display: flex;
+    width: 34px;
+    font-size: xxx-large;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    color: #478fb8;
+}
+
+.component_container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+.sideBarItem__wraper {
+  width: 100%;
+  padding-left: 3px;
+}
+.sideBarItem__name {
+  font-weight: bold;
+  color: #478fb8;
+  /* font-size: 14px; */
+}
+.sideBarItem__description {
+  color: #a8a79c;
+}
+
+.sideBarItem {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 4px;
+  border: 1px solid #ccc;
+  margin: 2px;
+}
+
+.component_search_container {
+  padding: 0 5px;
+  padding-bottom: 5px;
+}
+.component_search_box {
+  width: 100%;
+  border-radius: 20px !important;
+  border: 2px solid #478fb8 !important;
+  margin: 10px 0;
+}
+
 
 .page {
   flex: 1 1 auto;
@@ -41,6 +91,7 @@ body {
   margin: 20px;
   border: 1px solid green;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 .dropZone {
@@ -178,6 +229,11 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
+  margin-top: 10px;
+}
+.page-head-wrapper h2 {
+  margin: 0;
+  color: #646970;
 }
 
 .corner-elements .trash-icon {
@@ -230,4 +286,29 @@ body {
   bottom: 0;
   background-color: rgba(17, 8, 26, 0.347);
 }
+/* Define styles for resizable divs */
+.resizable {
+  /* width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border: 1px solid #000; */
+  /* resize: both;  */
+  /* overflow: auto;  */
+  position: relative;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  top: 0;
+  right: -5px; /* Adjust the position to center it */
+  cursor: col-resize;
+  background-color: transparent;
+}
+
+
+
+
+
 

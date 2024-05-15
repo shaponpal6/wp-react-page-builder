@@ -12,7 +12,12 @@ const SideBarItem = ({ data }) => {
   
   return (
     <div className="sideBarItem" ref={drag} style={{ opacity }}>
-      {data.component.type}
+      <span class={data.component.icon}></span>
+      <div className="sideBarItem__wraper">
+        <div className="sideBarItem__name">{data.component.name}</div>
+        <div className="sideBarItem__description">{data.component.content}</div>
+      </div>
+      {/* {data.component.name} */}
     </div>
   );
 };
