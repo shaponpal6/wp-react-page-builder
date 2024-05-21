@@ -2,8 +2,20 @@ import shortid from "shortid";
 
 export const SIDEBAR_ITEM = "sidebarItem";
 export const ROW = "row";
+export const Text = "text";
+export const URL = "url";
+export const MEDIA = "media";
 export const COLUMN = "column";
 export const COMPONENT = "component";
+
+export const COMPONENTS_TYPE = {
+  text: 'text',
+  url: 'url',
+  yt_url: 'yt_url',
+  video_url: 'video_url',
+  map_url: 'map_url',
+  media: 'media',
+}
 
 export const SIDEBAR_ITEMS = [
   {
@@ -13,7 +25,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Text Block',
       content: "Some input",
       icon: 'dashicons dashicons-editor-paste-text',
-      type: "input",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Text',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -23,7 +42,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Single Image',
       content: "Some name",
       icon: 'dashicons dashicons-format-image',
-      type: "name",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'alt',
+          title: 'Text',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'images',
+          title: 'Upload image',
+          type: COMPONENTS_TYPE.media,
+        }
+      ],
     }
   },
   {
@@ -33,7 +65,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Image Gallery',
       content: "Some email",
       icon: 'dashicons dashicons-images-alt',
-      type: "email",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Image Gallery Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'images',
+          title: 'Upload images',
+          type: COMPONENTS_TYPE.media,
+        }
+      ],
     }
   },
   {
@@ -43,7 +88,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Image Slider',
       content: "Some phone",
       icon: 'dashicons dashicons-slides',
-      type: "phone",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Image Slider Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'images',
+          title: 'Upload images',
+          type: COMPONENTS_TYPE.media,
+        }
+      ],
     }
   },
   {
@@ -53,7 +111,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Seperator',
       content: "Some image",
       icon: 'dashicons dashicons-minus',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'seperator',
+          title: 'Seperator Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -63,7 +128,26 @@ export const SIDEBAR_ITEMS = [
       name: 'Button',
       content: "Some image",
       icon: 'dashicons dashicons-button',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Button Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'url',
+          title: 'Button URL',
+          type: COMPONENTS_TYPE.url,
+        },
+        {
+          id: shortid.generate(),
+          key: 'cta',
+          title: 'Button CTA',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -73,7 +157,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Tab',
       content: "Some image",
       icon: 'dashicons dashicons-table-row-after',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -83,7 +174,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Testimonial',
       content: "Some image",
       icon: 'dashicons dashicons-testimonial',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -93,7 +191,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Video Player',
       content: "Some image",
       icon: 'dashicons dashicons-format-video',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'videos',
+          title: 'Upload Video',
+          type: COMPONENTS_TYPE.media,
+        }
+      ],
     }
   },
   {
@@ -103,7 +214,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Youtube Player',
       content: "Some image",
       icon: 'dashicons dashicons-video-alt3',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'ytUrl',
+          title: 'Youtube URL',
+          type: COMPONENTS_TYPE.yt_url,
+        }
+      ],
     }
   },
   {
@@ -113,7 +237,20 @@ export const SIDEBAR_ITEMS = [
       name: 'Google Map',
       content: "Some image",
       icon: 'dashicons dashicons-admin-site-alt3',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Map Title',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'url',
+          title: 'Map URL',
+          type: COMPONENTS_TYPE.map_url,
+        }
+      ],
     }
   },
   {
@@ -123,7 +260,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Single Product',
       content: "Some image",
       icon: 'dashicons dashicons-feedback',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -133,7 +277,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Product Slider',
       content: "Some image",
       icon: 'dashicons dashicons-images-alt2',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
   {
@@ -143,7 +294,14 @@ export const SIDEBAR_ITEMS = [
       name: 'Product List',
       content: "Some image",
       icon: 'dashicons dashicons-list-view',
-      type: "image",
+      items: [
+        {
+          id: shortid.generate(),
+          key: 'text',
+          title: 'Title',
+          type: COMPONENTS_TYPE.text,
+        }
+      ],
     }
   },
 ];

@@ -1,20 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import { useDrag } from "react-dnd";
 import { ROW } from "./constants";
-import DropZone from "./DropZone";
-import Column from "./Column";
-import ComponentModal from "./ComponentModal";
-import {fetchScreenData} from "../store/actions/screen";
+import UpdateComponentModal from "./UpdateComponentModal";
+import { updateScreenData } from "../store/actions/screen";
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../store/store';
-import {removeScreenData} from "../store/actions/screen";
+import { removeScreenData } from "../store/actions/screen";
+import useWpMediaUploader from '../hooks/useWpMediaUploader';
+import ComponentViewer from "./ComponentViewer";
 
 const style = {};
-const Row = ({ data, components, handleDrop, path, handleDropToTrashBin }) => {
+const Row = ({ data, path }) => {
   const ref = useRef(null);
-  const [input, setInputValue]= useState('');
+  const [isExpend, setIsExpend] = useState(false);
   const dispatch = useAppDispatch();
   const store = useSelector((state) => state.screen);
+  const [images, openMediaUploader] = useWpMediaUploader();
+  const [newData, setNewData] = useState({});
+  const itemComponent = data?.component ?? {};
+  const storeData = store.data.bl_screen_data.filter((item) => item.id === newData.id)[0] ?? {};
 
   const [{ isDragging }, drag] = useDrag({
     item: {
@@ -28,84 +32,62 @@ const Row = ({ data, components, handleDrop, path, handleDropToTrashBin }) => {
     })
   });
 
+  useEffect(() => {
+    setNewData({ ...data });
+  }, []);
+
+  useEffect(() => {
+    if (images.length) {
+      dispatch(updateScreenData({ ...storeData, data: { ...storeData.data || {}, images: images } }));
+    }
+  }, [images]);
+
   const opacity = isDragging ? 0 : 1;
   drag(ref);
-
-  const renderColumn = (column, currentPath) => {
-    return (
-      <Column
-        key={column.id}
-        data={column}
-        components={components}
-        handleDrop={handleDrop}
-        path={currentPath}
-      />
-    );
-  };
-
-  // Function to parse URL parameters
-  const getUrlParameter = (name) => {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    const results = regex.exec(window.location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
-
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
-    // addTodoAction(33);
-    // dispatch(updateScreenData({"key2": e.target.value}));
-  }
 
   const handleDelete = (data) => {
     dispatch(removeScreenData(data));
   }
 
-
-
   return (
     <div ref={ref} style={{ ...style, opacity }} className="base draggable row">
-      {/* {data.id} */}
       <div className="columns component-wrapper">
         <div class="corner-elements">
-            <span class="icon save-icon"><ComponentModal component={data}/></span>
-            <span class="icon"><button class="trash-icon" onClick={()=>handleDelete(data)}>&#10539;</button></span>
-            
+          <span class="icon save-icon">
+            <UpdateComponentModal newData={storeData || {}} component={data} openMediaUploader={openMediaUploader} />
+          </span>
+          <span class="icon"><button class="trash-icon" onClick={() => handleDelete(data)}>&#10539;</button></span>
         </div>
-        
-        {/* <input type="text" className="" placeholder="Enter text" onChange={handleInput} /> */}
-        <h4>{data.val ?? "..."}</h4>
-      </div>
-      
-      {/* <div className="columns">
-        {data.children.map((column, index) => {
-          const currentPath = `${path}-${index}`;
+        <div class="left-corner-elements">
+          <p class="component-name"><span class={itemComponent.icon}></span> {itemComponent.name}</p>
+        </div>
+        <h4>{storeData?.data && storeData?.data?.text || ""}</h4>
+        {isExpend ? (
+          <div class="expend-container">
+            <ComponentViewer row={storeData}/>
+            <div class="expend-button" onClick={() => setIsExpend(!isExpend)}>
+              <span class="dashicons dashicons-arrow-up-alt2"></span>
+            </div>
 
-          return (
-            <React.Fragment key={column.id}>
-              <DropZone
-                data={{
-                  path: currentPath,
-                  childrenCount: data.children.length,
-                }}
-                onDrop={handleDrop}
-                className="horizontalDrag"
-              />
-              {renderColumn(column, currentPath)}
-            </React.Fragment>
-          );
-        })}
-        <DropZone
-          data={{
-            path: `${path}-${data.children.length}`,
-            childrenCount: data.children.length
-          }}
-          onDrop={handleDrop}
-          className="horizontalDrag"
-          isLast
-        />
-      </div> */}
+            {/* <div class="image-container">
+              {storeData?.data && storeData?.data?.images && storeData.data.images.length && storeData?.data?.images.map((image, index) => (
+                <img key={index} src={image.url || ""} alt={`Image ${index}`} width={150} />
+              ))}
+            </div>
+
+            {storeData?.data && storeData?.data?.ytUrl && storeData?.data?.ytUrl !== "" && (
+              <VideoPlayer url={storeData?.data?.ytUrl || ""} />
+            )}
+             */}
+
+          </div>
+        ) : (
+          <div class="expend-button" onClick={() => setIsExpend(!isExpend)}>
+            <span class="dashicons dashicons-arrow-down-alt2"></span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
-export default Row;
+export default memo(Row);

@@ -96,7 +96,7 @@ class Blpage_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+        wp_enqueue_media();
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blpage-admin.js'.'?version='.time(), array( 'jquery' ), $this->version, false );
 		wp_enqueue_script('bl-react-app-js',  BLPAGE_PATH . 'build/index.js'.'?version='.time(), array('wp-element'), '1.0', true);
 		// Pass wpApiSettings to the JavaScript file
@@ -105,6 +105,7 @@ class Blpage_Admin {
 		$query_params = parse_url($current_url, PHP_URL_QUERY);
 		parse_str($query_params, $query_array);
 		$screen_id = isset($query_array['screen_id']) ? $query_array['screen_id'] : null;
+		
 		wp_localize_script(
 			'bl-react-app-js',
 			'wpApiSettings',

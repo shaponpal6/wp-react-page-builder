@@ -1,5 +1,4 @@
-import { configureStore, createSlice, current } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { createSlice } from '@reduxjs/toolkit';
 
 function updateOrAppend(input, data) {
   let foundIndex = -1;
@@ -41,17 +40,12 @@ const screenSlice = createSlice({
     },
     updateScreenDataSuccess(state, action) {
       const payloadData = action.payload;
-      // const data = current(state);
       const deepData = JSON.parse(JSON.stringify(state.data));
-      console.log('@@deepData', deepData)
       let bl_screen_data =  deepData?.bl_screen_data ?? [];
       if(payloadData){
-        // const shallowCopy = Object.assign({}, bl_screen_data);
-        console.log('@@@@@bl_screen_data>>>>>', bl_screen_data, payloadData)
-        // bl_screen_data = updateOrAppend(payloadData, bl_screen_data);
         const index = bl_screen_data.findIndex(item => item.id === payloadData.id);
         if (index !== -1) {
-          bl_screen_data[index].val = payloadData.val;
+          bl_screen_data[index] = payloadData;
         } else {
           bl_screen_data.push(payloadData);
         }
@@ -63,14 +57,11 @@ const screenSlice = createSlice({
     },
     removeScreenDataSuccess(state, action) {
       const payloadData = action.payload;
-      // const data = current(state);
       const deepData = JSON.parse(JSON.stringify(state.data));
-      console.log('@@deepData', deepData)
       let bl_screen_data =  deepData?.bl_screen_data ?? [];
       if( bl_screen_data.length){
         bl_screen_data = bl_screen_data.filter(row => row.id !== payloadData.id);
       };
-      // state.data = {...data, "data":{...data.data, "bl_screen_data": bl_screen_data}};
       return {
         ...state,
         data: {...state.data, bl_screen_data: bl_screen_data},
@@ -78,19 +69,10 @@ const screenSlice = createSlice({
     },
     sortingScreenDataSuccess(state, action) {
       const payloadData = action.payload;
-      // const data = current(state);
-      const deepData = JSON.parse(JSON.stringify(state.data));
-      console.log('@@deepData', deepData)
-      // let bl_screen_data =  deepData?.bl_screen_data ?? [];
       let bl_screen_data =  payloadData;
       if(bl_screen_data && bl_screen_data.length > 0) {
-        bl_screen_data = bl_screen_data.map(item => ({id: item.id, type: item.type, val: item.val}));
+        bl_screen_data = bl_screen_data.map(item => ({id: item.id, type: item.type, data: item.data || {}, component: item.component || {}}));
       }
-      // if( bl_screen_data.length){
-      //   bl_screen_data = bl_screen_data.filter(row => row.id !== payloadData.id);
-      // };
-      // state.data = {...data, "data":{...data.data, "bl_screen_data": bl_screen_data}};
-      console.log('Sort bl_screen_data', bl_screen_data)
       return {
         ...state,
         data: {...state.data, bl_screen_data: bl_screen_data},

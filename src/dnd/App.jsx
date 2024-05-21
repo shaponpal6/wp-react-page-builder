@@ -1,7 +1,7 @@
 // App.js
-import React, {useMemo} from 'react';
+import React, {useMemo, memo} from 'react';
 
-const App = useMemo(() => {
+const App = memo(() => {
   return (
     <div>
       <h1>Counter App</h1>

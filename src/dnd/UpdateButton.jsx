@@ -16,7 +16,6 @@ function UpdateButton() {
   function saveScreenData() {
     // const screen_id = getUrlParameter('screen_id');
     const screen_id = wpApiSettings.screen_id;
-    console.log('screenData', screenData)
     fetch('http://localhost/wordpress/wp-json/bl/v1/save-screen/' + screen_id, {
       method: 'POST',
       headers: {
@@ -26,7 +25,6 @@ function UpdateButton() {
       body: JSON.stringify(screenData?.data?.bl_screen_data ?? [])
     })
       .then(response => {
-        console.log('response', response)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -43,7 +41,7 @@ function UpdateButton() {
   }
   return (
     <div>
-      <button className='save-icon update-button' onClick={saveScreenData}>Update</button>
+      <button className='save-icon update-button' onClick={saveScreenData}><span class="dashicons dashicons-yes-alt"></span>&nbsp;Save Changes</button>
     </div>
   )
 }

@@ -25,8 +25,6 @@ export const updateScreenData = (payload) => async (dispatch) => {
     }
   };
 export const removeScreenData = (payload) => async (dispatch) => {
-  // console.log('payload', payload)
-  // return ;
     try {
       dispatch(removeScreenDataSuccess(payload));
     } catch (error) {
@@ -35,7 +33,6 @@ export const removeScreenData = (payload) => async (dispatch) => {
   };
 
 export const sortScreenData = (payload) => async (dispatch) => {
-  console.log('111111111111@@@payload', payload, dispatch)
     try {
       dispatch(sortingScreenDataSuccess(payload));
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import React, { useState, useCallback, useEffect, useMemo, memo } from "react";
 
 import DropZone from "./DropZone";
 import TrashDropZone from "./TrashDropZone";
@@ -20,6 +20,7 @@ import { useAppDispatch } from '../store/store';
 
 import { SIDEBAR_ITEMS, SIDEBAR_ITEM, COMPONENT, COLUMN } from "./constants";
 import shortid from "shortid";
+import ComponentList from "./ComponentList";
 
 const Container = (() => {
   const initialLayout = initialData.layout;
@@ -30,7 +31,6 @@ const Container = (() => {
 
   const dispatch = useAppDispatch();
   const store = useSelector((state) => state.screen);
-  console.log('layout', layout)
 
   const handleSorting = useCallback(
     (layout) => {
@@ -38,9 +38,7 @@ const Container = (() => {
       const layout2 = layout.map(row =>({id: row.id, type: row.type, val: row.val}));
       const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
       if (!areArraysEqual) {
-        // dispatch(removeScreenData(layout));
         dispatch(sortScreenData(layout));
-        console.log('########call sort', layout)
       }
     },
     [layout]
@@ -56,8 +54,8 @@ const Container = (() => {
           children: row
         }
       });
-      setLayout(rows);
     }
+    setLayout(rows);
   }, [store]);
 
   const handleDropToTrashBin = useCallback(
@@ -70,13 +68,11 @@ const Container = (() => {
 
   const handleDrop = useCallback(
     (dropZone, item) => {
-      console.log('item', item)
-      // handleSorting(layout)
       const splitDropZonePath = dropZone.path.split("-");
       const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
       let newLayout = layout;
 
-      const newItem = { id: item.id, type: item.type, val: item.id };
+      let newItem = { ...item};
       if (item.type === COLUMN) {
         newItem.children = item.children;
       }
@@ -87,10 +83,11 @@ const Container = (() => {
           id: shortid.generate(),
           ...item.component
         };
-        const newItem = {
+        newItem = {
           id: newComponent.id,
           type: COMPONENT,
-          val: newComponent.id
+          data: {},
+          component: newItem.component
         };
         setComponents({
           ...components,
@@ -204,18 +201,9 @@ const Container = (() => {
       </div>
       <div className="sideBar resizable">
         <UpdateButton/>
-        {/* <h2>Components</h2> */}
-        <div className="component_search_container">
-          <input type="text" className="component_search_box" placeholder="Search Components" />
-          {/* <button class="bottom-right-corner" onClick={handleSave}>Save</button> */}
-        </div>
-        <div className="component_container">
-        {Object.values(SIDEBAR_ITEMS).map((sideBarItem, index) => (
-          <SideBarItem key={sideBarItem.id} data={sideBarItem} />
-        ))}
-        </div>
+        <ComponentList/>
       </div>
     </div>
   );
 });
-export default Container;
+export default memo(Container);
