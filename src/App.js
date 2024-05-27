@@ -1,7 +1,7 @@
 
 import { store } from './store/store'
 import { Provider } from 'react-redux'
-import DndApp from './dnd/index';
+import DndApp from './ScreenBuilder/index';
 
 const App = () => {
 

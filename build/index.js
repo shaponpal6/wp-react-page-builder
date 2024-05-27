@@ -2324,14 +2324,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/store */ "./src/store/store.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _dnd_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dnd/index */ "./src/dnd/index.js");
+/* harmony import */ var _ScreenBuilder_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ScreenBuilder/index */ "./src/ScreenBuilder/index.js");
 
 
 
 const App = () => {
   return /*#__PURE__*/React.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
     store: _store_store__WEBPACK_IMPORTED_MODULE_0__.store
-  }, /*#__PURE__*/React.createElement(_dnd_index__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+  }, /*#__PURE__*/React.createElement(_ScreenBuilder_index__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 
@@ -2914,10 +2914,10 @@ const WpMediaUploader = ({
 
 /***/ }),
 
-/***/ "./src/dnd/ComponentList.jsx":
-/*!***********************************!*\
-  !*** ./src/dnd/ComponentList.jsx ***!
-  \***********************************/
+/***/ "./src/ScreenBuilder/ComponentList.jsx":
+/*!*********************************************!*\
+  !*** ./src/ScreenBuilder/ComponentList.jsx ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2927,8 +2927,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SideBarItem */ "./src/dnd/SideBarItem.jsx");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SideBarItem */ "./src/ScreenBuilder/SideBarItem.jsx");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 
 
 
@@ -2959,10 +2959,10 @@ function ComponentList(props) {
 
 /***/ }),
 
-/***/ "./src/dnd/ComponentSelector.jsx":
-/*!***************************************!*\
-  !*** ./src/dnd/ComponentSelector.jsx ***!
-  \***************************************/
+/***/ "./src/ScreenBuilder/ComponentSelector.jsx":
+/*!*************************************************!*\
+  !*** ./src/ScreenBuilder/ComponentSelector.jsx ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2978,7 +2978,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_WpMediaUploader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/WpMediaUploader */ "./src/Components/WpMediaUploader.jsx");
 /* harmony import */ var _Components_InputComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/InputComponent */ "./src/Components/InputComponent.jsx");
 /* harmony import */ var _Components_ProductSearchComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/ProductSearchComponent */ "./src/Components/ProductSearchComponent.jsx");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 /* harmony import */ var _Components_RichTextEditor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Components/RichTextEditor */ "./src/Components/RichTextEditor.jsx");
 
 
@@ -3153,10 +3153,10 @@ function ComponentSelector({
 
 /***/ }),
 
-/***/ "./src/dnd/ComponentViewer.jsx":
-/*!*************************************!*\
-  !*** ./src/dnd/ComponentViewer.jsx ***!
-  \*************************************/
+/***/ "./src/ScreenBuilder/ComponentViewer.jsx":
+/*!***********************************************!*\
+  !*** ./src/ScreenBuilder/ComponentViewer.jsx ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3167,7 +3167,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Components_VideoPlayer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Components/VideoPlayer */ "./src/Components/VideoPlayer.jsx");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 /* harmony import */ var _Components_ImageCarousel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Components/ImageCarousel */ "./src/Components/ImageCarousel.jsx");
 /* harmony import */ var _Components_CardComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/CardComponent */ "./src/Components/CardComponent.jsx");
 /* harmony import */ var _Components_GoogleMapIframe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/GoogleMapIframe */ "./src/Components/GoogleMapIframe.jsx");
@@ -3253,10 +3253,10 @@ function ComponentViewer({
 
 /***/ }),
 
-/***/ "./src/dnd/Container.jsx":
-/*!*******************************!*\
-  !*** ./src/dnd/Container.jsx ***!
-  \*******************************/
+/***/ "./src/ScreenBuilder/Container.jsx":
+/*!*****************************************!*\
+  !*** ./src/ScreenBuilder/Container.jsx ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3266,21 +3266,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropZone */ "./src/dnd/DropZone.jsx");
-/* harmony import */ var _TrashDropZone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TrashDropZone */ "./src/dnd/TrashDropZone.jsx");
-/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBarItem */ "./src/dnd/SideBarItem.jsx");
-/* harmony import */ var _ScreenItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScreenItem */ "./src/dnd/ScreenItem.jsx");
-/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row */ "./src/dnd/Row.jsx");
-/* harmony import */ var _UpdateButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateButton */ "./src/dnd/UpdateButton.jsx");
-/* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/dnd/initial-data.js");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/dnd/helpers.js");
+/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropZone */ "./src/ScreenBuilder/DropZone.jsx");
+/* harmony import */ var _TrashDropZone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TrashDropZone */ "./src/ScreenBuilder/TrashDropZone.jsx");
+/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBarItem */ "./src/ScreenBuilder/SideBarItem.jsx");
+/* harmony import */ var _ScreenItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScreenItem */ "./src/ScreenBuilder/ScreenItem.jsx");
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row */ "./src/ScreenBuilder/Row.jsx");
+/* harmony import */ var _UpdateButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateButton */ "./src/ScreenBuilder/UpdateButton.jsx");
+/* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/ScreenBuilder/initial-data.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/ScreenBuilder/helpers.js");
 /* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _ComponentList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ComponentList */ "./src/dnd/ComponentList.jsx");
+/* harmony import */ var _ComponentList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ComponentList */ "./src/ScreenBuilder/ComponentList.jsx");
 
 
 
@@ -3433,10 +3433,10 @@ const Container = () => {
 
 /***/ }),
 
-/***/ "./src/dnd/DropZone.jsx":
-/*!******************************!*\
-  !*** ./src/dnd/DropZone.jsx ***!
-  \******************************/
+/***/ "./src/ScreenBuilder/DropZone.jsx":
+/*!****************************************!*\
+  !*** ./src/ScreenBuilder/DropZone.jsx ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3449,7 +3449,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/hooks/useDrop.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 
 
 
@@ -3529,10 +3529,10 @@ const DropZone = ({
 
 /***/ }),
 
-/***/ "./src/dnd/Row.jsx":
-/*!*************************!*\
-  !*** ./src/dnd/Row.jsx ***!
-  \*************************/
+/***/ "./src/ScreenBuilder/Row.jsx":
+/*!***********************************!*\
+  !*** ./src/ScreenBuilder/Row.jsx ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3543,13 +3543,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/hooks/useDrag.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
-/* harmony import */ var _UpdateComponentModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateComponentModal */ "./src/dnd/UpdateComponentModal.jsx");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
+/* harmony import */ var _UpdateComponentModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateComponentModal */ "./src/ScreenBuilder/UpdateComponentModal.jsx");
 /* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
 /* harmony import */ var _hooks_useWpMediaUploader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../hooks/useWpMediaUploader */ "./src/hooks/useWpMediaUploader.jsx");
-/* harmony import */ var _ComponentViewer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ComponentViewer */ "./src/dnd/ComponentViewer.jsx");
+/* harmony import */ var _ComponentViewer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ComponentViewer */ "./src/ScreenBuilder/ComponentViewer.jsx");
 
 
 
@@ -3655,10 +3655,10 @@ const Row = ({
 
 /***/ }),
 
-/***/ "./src/dnd/ScreenItem.jsx":
-/*!********************************!*\
-  !*** ./src/dnd/ScreenItem.jsx ***!
-  \********************************/
+/***/ "./src/ScreenBuilder/ScreenItem.jsx":
+/*!******************************************!*\
+  !*** ./src/ScreenBuilder/ScreenItem.jsx ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3680,10 +3680,10 @@ const ScreenItem = ({
 
 /***/ }),
 
-/***/ "./src/dnd/SideBarItem.jsx":
-/*!*********************************!*\
-  !*** ./src/dnd/SideBarItem.jsx ***!
-  \*********************************/
+/***/ "./src/ScreenBuilder/SideBarItem.jsx":
+/*!*******************************************!*\
+  !*** ./src/ScreenBuilder/SideBarItem.jsx ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3727,10 +3727,10 @@ const SideBarItem = ({
 
 /***/ }),
 
-/***/ "./src/dnd/TrashDropZone.jsx":
-/*!***********************************!*\
-  !*** ./src/dnd/TrashDropZone.jsx ***!
-  \***********************************/
+/***/ "./src/ScreenBuilder/TrashDropZone.jsx":
+/*!*********************************************!*\
+  !*** ./src/ScreenBuilder/TrashDropZone.jsx ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3743,7 +3743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/hooks/useDrop.js");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 
 
 
@@ -3791,10 +3791,10 @@ const TrashDropZone = ({
 
 /***/ }),
 
-/***/ "./src/dnd/UpdateButton.jsx":
-/*!**********************************!*\
-  !*** ./src/dnd/UpdateButton.jsx ***!
-  \**********************************/
+/***/ "./src/ScreenBuilder/UpdateButton.jsx":
+/*!********************************************!*\
+  !*** ./src/ScreenBuilder/UpdateButton.jsx ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3853,10 +3853,10 @@ function UpdateButton() {
 
 /***/ }),
 
-/***/ "./src/dnd/UpdateComponentModal.jsx":
-/*!******************************************!*\
-  !*** ./src/dnd/UpdateComponentModal.jsx ***!
-  \******************************************/
+/***/ "./src/ScreenBuilder/UpdateComponentModal.jsx":
+/*!****************************************************!*\
+  !*** ./src/ScreenBuilder/UpdateComponentModal.jsx ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3868,7 +3868,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
 /* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ComponentSelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ComponentSelector */ "./src/dnd/ComponentSelector.jsx");
+/* harmony import */ var _ComponentSelector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ComponentSelector */ "./src/ScreenBuilder/ComponentSelector.jsx");
 
 
 
@@ -3923,10 +3923,10 @@ function ComponentModal({
 
 /***/ }),
 
-/***/ "./src/dnd/constants.js":
-/*!******************************!*\
-  !*** ./src/dnd/constants.js ***!
-  \******************************/
+/***/ "./src/ScreenBuilder/constants.js":
+/*!****************************************!*\
+  !*** ./src/ScreenBuilder/constants.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4228,10 +4228,10 @@ const SIDEBAR_ITEMS = [{
 
 /***/ }),
 
-/***/ "./src/dnd/helpers.js":
-/*!****************************!*\
-  !*** ./src/dnd/helpers.js ***!
-  \****************************/
+/***/ "./src/ScreenBuilder/helpers.js":
+/*!**************************************!*\
+  !*** ./src/ScreenBuilder/helpers.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4251,7 +4251,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 
 
 
@@ -4438,10 +4438,10 @@ const handleRemoveItemFromLayout = (layout, splitItemPath) => {
 
 /***/ }),
 
-/***/ "./src/dnd/index.js":
-/*!**************************!*\
-  !*** ./src/dnd/index.js ***!
-  \**************************/
+/***/ "./src/ScreenBuilder/index.js":
+/*!************************************!*\
+  !*** ./src/ScreenBuilder/index.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4452,7 +4452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/esm/index.js");
-/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Container */ "./src/dnd/Container.jsx");
+/* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Container */ "./src/ScreenBuilder/Container.jsx");
 /* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/common/DndProvider.js");
 /* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
@@ -4485,10 +4485,10 @@ function DndApp() {
 
 /***/ }),
 
-/***/ "./src/dnd/initial-data.js":
-/*!*********************************!*\
-  !*** ./src/dnd/initial-data.js ***!
-  \*********************************/
+/***/ "./src/ScreenBuilder/initial-data.js":
+/*!*******************************************!*\
+  !*** ./src/ScreenBuilder/initial-data.js ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4496,7 +4496,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/dnd/constants.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 
 const initialData = {
   layout: [
