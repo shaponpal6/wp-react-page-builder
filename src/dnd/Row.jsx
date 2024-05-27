@@ -15,7 +15,7 @@ const Row = ({ data, path }) => {
   const [isExpend, setIsExpend] = useState(false);
   const dispatch = useAppDispatch();
   const store = useSelector((state) => state.screen);
-  const [images, openMediaUploader] = useWpMediaUploader();
+  const [mediaKey, images, openMediaUploader] = useWpMediaUploader();
   const [newData, setNewData] = useState({});
   const itemComponent = data?.component ?? {};
   const storeData = store.data.bl_screen_data.filter((item) => item.id === newData.id)[0] ?? {};
@@ -38,7 +38,7 @@ const Row = ({ data, path }) => {
 
   useEffect(() => {
     if (images.length) {
-      dispatch(updateScreenData({ ...storeData, data: { ...storeData.data || {}, images: images } }));
+      dispatch(updateScreenData({ ...storeData, data: { ...storeData.data || {}, [mediaKey]: images } }));
     }
   }, [images]);
 

@@ -103,18 +103,21 @@ class Blpage_Admin {
 		// Get the current page URL with query string
 		$current_url = $_SERVER["REQUEST_URI"];
 		$query_params = parse_url($current_url, PHP_URL_QUERY);
-		parse_str($query_params, $query_array);
-		$screen_id = isset($query_array['screen_id']) ? $query_array['screen_id'] : null;
-		
-		wp_localize_script(
-			'bl-react-app-js',
-			'wpApiSettings',
-			array(
-				'root' => esc_url_raw( rest_url() ),
-				'nonce' => wp_create_nonce( 'wp_rest' ),
-				'screen_id' => $screen_id,
-			)
-		);
+		if($query_params){
+			parse_str($query_params, $query_array);
+			$screen_id = isset($query_array['screen_id']) ? $query_array['screen_id'] : null;
+			if($screen_id){
+				wp_localize_script(
+					'bl-react-app-js',
+					'wpApiSettings',
+					array(
+						'root' => esc_url_raw( rest_url() ),
+						'nonce' => wp_create_nonce( 'wp_rest' ),
+						'screen_id' => $screen_id,
+					)
+				);
+			}
+		}
 
 	}
 

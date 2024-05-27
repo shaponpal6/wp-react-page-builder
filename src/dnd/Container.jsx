@@ -47,6 +47,7 @@ const Container = (() => {
 
   useEffect(() => {
     let rows = store?.data?.bl_screen_data ?? [];
+    console.log('rows', rows)
     if(rows.length > 0) {
       rows = rows.map(row => {
         return {

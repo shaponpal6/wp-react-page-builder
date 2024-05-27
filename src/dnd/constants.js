@@ -10,11 +10,19 @@ export const COMPONENT = "component";
 
 export const COMPONENTS_TYPE = {
   text: 'text',
+  editor: 'editor',
   url: 'url',
   yt_url: 'yt_url',
   video_url: 'video_url',
   map_url: 'map_url',
   media: 'media',
+  seperator: 'seperator',
+  single_image: 'single_image',
+  multiple_images: 'multiple_images',
+  single_video: 'single_video',
+  multiple_videos: 'multiple_videos',
+  single_product: 'single_product',
+  multi_product: 'multi_product',
 }
 
 export const SIDEBAR_ITEMS = [
@@ -31,6 +39,12 @@ export const SIDEBAR_ITEMS = [
           key: 'text',
           title: 'Text',
           type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'editor',
+          title: 'Editor',
+          type: COMPONENTS_TYPE.editor,
         }
       ],
     }
@@ -51,9 +65,9 @@ export const SIDEBAR_ITEMS = [
         },
         {
           id: shortid.generate(),
-          key: 'images',
+          key: 'image',
           title: 'Upload image',
-          type: COMPONENTS_TYPE.media,
+          type: COMPONENTS_TYPE.single_image,
         }
       ],
     }
@@ -76,7 +90,7 @@ export const SIDEBAR_ITEMS = [
           id: shortid.generate(),
           key: 'images',
           title: 'Upload images',
-          type: COMPONENTS_TYPE.media,
+          type: COMPONENTS_TYPE.multiple_images,
         }
       ],
     }
@@ -97,9 +111,9 @@ export const SIDEBAR_ITEMS = [
         },
         {
           id: shortid.generate(),
-          key: 'images',
+          key: 'images_slider',
           title: 'Upload images',
-          type: COMPONENTS_TYPE.media,
+          type: COMPONENTS_TYPE.multiple_images,
         }
       ],
     }
@@ -116,6 +130,12 @@ export const SIDEBAR_ITEMS = [
           id: shortid.generate(),
           key: 'seperator',
           title: 'Seperator Title',
+          type: COMPONENTS_TYPE.seperator,
+        },
+        {
+          id: shortid.generate(),
+          key: 'height',
+          title: 'Seperator Height',
           type: COMPONENTS_TYPE.text,
         }
       ],
@@ -202,7 +222,7 @@ export const SIDEBAR_ITEMS = [
           id: shortid.generate(),
           key: 'videos',
           title: 'Upload Video',
-          type: COMPONENTS_TYPE.media,
+          type: COMPONENTS_TYPE.multiple_videos,
         }
       ],
     }
@@ -249,6 +269,18 @@ export const SIDEBAR_ITEMS = [
           key: 'url',
           title: 'Map URL',
           type: COMPONENTS_TYPE.map_url,
+        },
+        {
+          id: shortid.generate(),
+          key: 'latitude',
+          title: 'Map latitude',
+          type: COMPONENTS_TYPE.text,
+        },
+        {
+          id: shortid.generate(),
+          key: 'longitude',
+          title: 'Map longitude',
+          type: COMPONENTS_TYPE.text,
         }
       ],
     }
@@ -263,9 +295,9 @@ export const SIDEBAR_ITEMS = [
       items: [
         {
           id: shortid.generate(),
-          key: 'text',
-          title: 'Title',
-          type: COMPONENTS_TYPE.text,
+          key: 'product',
+          title: 'Product',
+          type: COMPONENTS_TYPE.single_product,
         }
       ],
     }
@@ -280,9 +312,9 @@ export const SIDEBAR_ITEMS = [
       items: [
         {
           id: shortid.generate(),
-          key: 'text',
-          title: 'Title',
-          type: COMPONENTS_TYPE.text,
+          key: 'product_sliders',
+          title: 'Product Slider',
+          type: COMPONENTS_TYPE.multi_product,
         }
       ],
     }
@@ -297,9 +329,9 @@ export const SIDEBAR_ITEMS = [
       items: [
         {
           id: shortid.generate(),
-          key: 'text',
-          title: 'Title',
-          type: COMPONENTS_TYPE.text,
+          key: 'product_list',
+          title: 'Product List',
+          type: COMPONENTS_TYPE.multi_product,
         }
       ],
     }

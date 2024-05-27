@@ -81,7 +81,7 @@ function custom_get_single_screen($request) {
         // Add more fields as needed
     );
 
-    return new WP_REST_Response(['data' => ['status' => 200, 'data' => $response]], 200);
+    return new WP_REST_Response(['code' => 'single_screen_data', 'status' => 200,'data' => ['status' => 200, 'data' => $response]], 200);
 }
 
 function custom_save_screen_data($request) {
