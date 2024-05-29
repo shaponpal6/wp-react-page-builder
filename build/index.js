@@ -2323,13 +2323,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store/store */ "./src/store/store.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _ScreenBuilder_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ScreenBuilder/index */ "./src/ScreenBuilder/index.js");
+/* harmony import */ var _ScreenBuilder_ComponentBuilder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ScreenBuilder/ComponentBuilder */ "./src/ScreenBuilder/ComponentBuilder.jsx");
+
 
 
 
 const App = () => {
-  return /*#__PURE__*/React.createElement(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
+  return /*#__PURE__*/React.createElement(react_redux__WEBPACK_IMPORTED_MODULE_3__.Provider, {
     store: _store_store__WEBPACK_IMPORTED_MODULE_0__.store
   }, /*#__PURE__*/React.createElement(_ScreenBuilder_index__WEBPACK_IMPORTED_MODULE_1__["default"], null));
 };
@@ -2914,6 +2916,190 @@ const WpMediaUploader = ({
 
 /***/ }),
 
+/***/ "./src/ScreenBuilder/ComponentBuilder.jsx":
+/*!************************************************!*\
+  !*** ./src/ScreenBuilder/ComponentBuilder.jsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _DropZone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropZone */ "./src/ScreenBuilder/DropZone.jsx");
+/* harmony import */ var _TrashDropZone__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TrashDropZone */ "./src/ScreenBuilder/TrashDropZone.jsx");
+/* harmony import */ var _SideBarItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SideBarItem */ "./src/ScreenBuilder/SideBarItem.jsx");
+/* harmony import */ var _ScreenItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ScreenItem */ "./src/ScreenBuilder/ScreenItem.jsx");
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Row */ "./src/ScreenBuilder/Row.jsx");
+/* harmony import */ var _UpdateButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./UpdateButton */ "./src/ScreenBuilder/UpdateButton.jsx");
+/* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/ScreenBuilder/initial-data.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/ScreenBuilder/helpers.js");
+/* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
+/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
+/* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _ComponentList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ComponentList */ "./src/ScreenBuilder/ComponentList.jsx");
+/* harmony import */ var _CreateComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./CreateComponent */ "./src/ScreenBuilder/CreateComponent.jsx");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const ComponentBuilder = () => {
+  const initialLayout = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].layout;
+  const initialComponents = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].components;
+  const initialScreens = _initial_data__WEBPACK_IMPORTED_MODULE_7__["default"].screens;
+  const [layout, setLayout] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialLayout);
+  const [components, setComponents] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialComponents);
+  const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_10__.useAppDispatch)();
+  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.useSelector)(state => state.screen);
+  const handleSorting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(layout => {
+    const rows = store?.data?.bl_screen_data ?? [];
+    const layout2 = layout.map(row => ({
+      id: row.id,
+      type: row.type,
+      val: row.val
+    }));
+    const areArraysEqual = JSON.stringify(rows) === JSON.stringify(layout2);
+    if (!areArraysEqual) {
+      dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_9__.sortScreenData)(layout));
+    }
+  }, [layout]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let rows = store?.data?.bl_screen_data ?? [];
+    console.log('rows', rows);
+    if (rows.length > 0) {
+      rows = rows.map(row => {
+        return {
+          ...row,
+          children: row
+        };
+      });
+    }
+    setLayout(rows);
+  }, [store]);
+  const handleDropToTrashBin = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
+    const splitItemPath = item.path.split("-");
+    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleRemoveItemFromLayout)(layout, splitItemPath));
+  }, [layout]);
+  const handleDrop = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((dropZone, item) => {
+    const splitDropZonePath = dropZone.path.split("-");
+    const pathToDropZone = splitDropZonePath.slice(0, -1).join("-");
+    let newLayout = layout;
+    let newItem = {
+      ...item
+    };
+    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.COLUMN) {
+      newItem.children = item.children;
+    }
+    // sidebar into
+    if (item.type === _constants__WEBPACK_IMPORTED_MODULE_11__.SIDEBAR_ITEM) {
+      // 1. Move sidebar item into page
+      const newComponent = {
+        id: shortid__WEBPACK_IMPORTED_MODULE_12___default().generate(),
+        ...item.component
+      };
+      newItem = {
+        id: newComponent.id,
+        type: _constants__WEBPACK_IMPORTED_MODULE_11__.COMPONENT,
+        data: {},
+        component: newItem.component
+      };
+      setComponents({
+        ...components,
+        [newComponent.id]: newComponent
+      });
+      newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveSidebarComponentIntoParent)(layout, splitDropZonePath, newItem);
+      setLayout(newLayout);
+      handleSorting(newLayout);
+      return;
+    }
+    // move down here since sidebar items dont have path
+    const splitItemPath = item.path.split("-");
+    const pathToItem = splitItemPath.slice(0, -1).join("-");
+
+    // 2. Pure move (no create)
+    if (splitItemPath.length === splitDropZonePath.length) {
+      // 2.a. move within parent
+      if (pathToItem === pathToDropZone) {
+        const newLayout = (0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveWithinParent)(layout, splitDropZonePath, splitItemPath);
+        setLayout(newLayout);
+        handleSorting(newLayout);
+        return;
+      }
+
+      // 2.b. OR move different parent
+      // TODO FIX columns. item includes children
+      setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
+      return;
+    }
+
+    // 3. Move + Create
+    setLayout((0,_helpers__WEBPACK_IMPORTED_MODULE_8__.handleMoveToDifferentParent)(layout, splitDropZonePath, splitItemPath, newItem));
+  }, [layout, components]);
+  const renderRow = (row, currentPath) => {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Row__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      key: row.id,
+      data: row,
+      handleDrop: handleDrop,
+      handleDropToTrashBin: handleDropToTrashBin,
+      components: components,
+      path: currentPath
+    });
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "dnd-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "sideBar resizable"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CreateComponent__WEBPACK_IMPORTED_MODULE_14__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentList__WEBPACK_IMPORTED_MODULE_13__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "pageContainer resizable"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "page-head-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Title: ", store?.data?.title ?? ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Status: ", store?.data?.status ?? "Unpublish")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "page"
+  }, layout.map((row, index) => {
+    const currentPath = `${index}`;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+      key: row.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      data: {
+        path: currentPath,
+        childrenCount: layout.length
+      },
+      onDrop: handleDrop,
+      path: currentPath
+    }), renderRow(row, currentPath));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_DropZone__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    data: {
+      path: `${layout.length}`,
+      childrenCount: layout.length
+    },
+    onDrop: handleDrop,
+    isLast: true
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "sideBar resizable"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentList__WEBPACK_IMPORTED_MODULE_13__["default"], null)));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(ComponentBuilder));
+
+/***/ }),
+
 /***/ "./src/ScreenBuilder/ComponentList.jsx":
 /*!*********************************************!*\
   !*** ./src/ScreenBuilder/ComponentList.jsx ***!
@@ -3275,12 +3461,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _initial_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./initial-data */ "./src/ScreenBuilder/initial-data.js");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./helpers */ "./src/ScreenBuilder/helpers.js");
 /* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./constants */ "./src/ScreenBuilder/constants.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! shortid */ "./node_modules/shortid/index.js");
 /* harmony import */ var shortid__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(shortid__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _ComponentList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ComponentList */ "./src/ScreenBuilder/ComponentList.jsx");
+/* harmony import */ var _CreateComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./CreateComponent */ "./src/ScreenBuilder/CreateComponent.jsx");
+
 
 
 
@@ -3303,7 +3491,7 @@ const Container = () => {
   const [layout, setLayout] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialLayout);
   const [components, setComponents] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialComponents);
   const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_10__.useAppDispatch)();
-  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_14__.useSelector)(state => state.screen);
+  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_15__.useSelector)(state => state.screen);
   const handleSorting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(layout => {
     const rows = store?.data?.bl_screen_data ?? [];
     const layout2 = layout.map(row => ({
@@ -3427,9 +3615,64 @@ const Container = () => {
     isLast: true
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "sideBar resizable"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateButton__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentList__WEBPACK_IMPORTED_MODULE_13__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateButton__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentList__WEBPACK_IMPORTED_MODULE_13__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CreateComponent__WEBPACK_IMPORTED_MODULE_14__["default"], null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(Container));
+
+/***/ }),
+
+/***/ "./src/ScreenBuilder/CreateComponent.jsx":
+/*!***********************************************!*\
+  !*** ./src/ScreenBuilder/CreateComponent.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
+
+
+
+function CreateComponent() {
+  const screenData = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(state => state.screen);
+  function saveScreenData() {
+    return;
+    // const screen_id = getUrlParameter('screen_id');
+    const screen_id = wpApiSettings.screen_id;
+    fetch('http://localhost/wordpress/wp-json/bl/v1/save-screen/' + screen_id, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-WP-Nonce': wpApiSettings.nonce // Nonce for authentication (assuming wpApiSettings is available globally)
+      },
+      body: JSON.stringify(screenData?.data?.bl_screen_data ?? [])
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }).then(data => {
+      console.log('Screen data saved successfully:', data);
+      alert('Screen data saved successfully');
+    }).catch(error => {
+      console.error('Error saving screen data:', error);
+      alert('Error saving screen data:' + error.message);
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "save-icon button-blue",
+    onClick: saveScreenData
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    class: "dashicons dashicons-plus-alt"
+  }), "\xA0Create New Component"));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateComponent);
 
 /***/ }),
 
@@ -3674,7 +3917,7 @@ const ScreenItem = ({
 }) => {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "sideBarItem"
-  }, data.content);
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hi"), data.content);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ScreenItem);
 
@@ -4451,14 +4694,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/esm/index.js");
+/* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/esm/index.js");
 /* harmony import */ var _Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Container */ "./src/ScreenBuilder/Container.jsx");
-/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/common/DndProvider.js");
-/* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
+/* harmony import */ var _ComponentBuilder__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ComponentBuilder */ "./src/ScreenBuilder/ComponentBuilder.jsx");
+/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/esm/common/DndProvider.js");
+/* harmony import */ var _store_actions_screen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/actions/screen */ "./src/store/actions/screen.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/store */ "./src/store/store.js");
 
 // import ReactDOM from "react-dom";
+
 
 
 
@@ -4469,17 +4714,17 @@ __webpack_require__.r(__webpack_exports__);
 // import "./styles.css";
 
 function DndApp() {
-  const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.useAppDispatch)();
-  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useSelector)(state => state.screen);
+  const dispatch = (0,_store_store__WEBPACK_IMPORTED_MODULE_4__.useAppDispatch)();
+  const store = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useSelector)(state => state.screen);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // dispatch(fetchData());
-    if (wpApiSettings.screen_id) dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_2__.fetchScreenData)(wpApiSettings.screen_id));
+    if (wpApiSettings.screen_id) dispatch((0,_store_actions_screen__WEBPACK_IMPORTED_MODULE_3__.fetchScreenData)(wpApiSettings.screen_id));
   }, [dispatch]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "App"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_dnd__WEBPACK_IMPORTED_MODULE_5__.DndProvider, {
-    backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }, store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. ' + store.error : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_dnd__WEBPACK_IMPORTED_MODULE_6__.DndProvider, {
+    backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }, store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. ' + store.error : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, wpApiSettings.page && wpApiSettings.page === "screens_builder" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null), wpApiSettings.page && wpApiSettings.page === "components" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentBuilder__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DndApp);
 

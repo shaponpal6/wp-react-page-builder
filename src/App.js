@@ -1,13 +1,16 @@
 
 import { store } from './store/store'
 import { Provider } from 'react-redux'
-import DndApp from './ScreenBuilder/index';
+import ScreenBuilder from './ScreenBuilder/index';
+import ComponentBuilder from './ScreenBuilder/ComponentBuilder';
 
 const App = () => {
 
   return (
     <Provider store={store}>
-      <DndApp />
+      <ScreenBuilder />
+      {/* {wpApiSettings.page && wpApiSettings.page === "screens_builder" && <ScreenBuilder />}
+      {wpApiSettings.page && wpApiSettings.page === "components" && <ComponentBuilder/>} */}
     </Provider>
   );
 };

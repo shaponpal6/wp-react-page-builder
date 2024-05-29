@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 // import ReactDOM from "react-dom";
 import Backend from "react-dnd-html5-backend";
 import Container from "./Container";
-import ComponentBuilder from "./ComponentBuilder";
 import { DndProvider } from "react-dnd";
 import {fetchScreenData} from "../store/actions/screen";
 import { useSelector } from 'react-redux';
@@ -10,7 +9,7 @@ import { useAppDispatch } from '../store/store';
 
 // import "./styles.css";
 
-function DndApp() {
+function ComponentBuilder() {
   const dispatch = useAppDispatch();
   const store = useSelector((state) => state.screen);
 
@@ -21,13 +20,10 @@ function DndApp() {
   return (
     <div className="App">
       <DndProvider backend={Backend}>
-        {store.loading ? "Loading..." : !wpApiSettings.screen_id || store.error !== null ? 'Something went wrong. '+store.error : (<>
-          {wpApiSettings.page && wpApiSettings.page === "screens_builder" && <Container />}
-          {wpApiSettings.page && wpApiSettings.page === "components" && <ComponentBuilder/>}
-        </>)}
+        {store.loading ? "Loading..." : !wpApiSettings.page || store.error !== null ? 'Something went wrong. '+store.error : <Container />}
       </DndProvider>
     </div>
   );
 }
 
-export default DndApp;
+export default ComponentBuilder;

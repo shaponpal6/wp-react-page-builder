@@ -57,7 +57,11 @@ function screens_builder_page() {
 }
 
 function components_page() {
-    // Components page content goes here
+    ?>
+    <div class="wrap">
+		<div id="bl-react-page-builder"></div>
+    </div>
+    <?php
 }
 
 function settings_page() {

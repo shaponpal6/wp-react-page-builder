@@ -23,7 +23,7 @@ import shortid from "shortid";
 import ComponentList from "./ComponentList";
 import CreateComponent from "./CreateComponent";
 
-const Container = (() => {
+const ComponentBuilder = (() => {
   const initialLayout = initialData.layout;
   const initialComponents = initialData.components;
   const initialScreens = initialData.screens;
@@ -160,7 +160,10 @@ const Container = (() => {
 
   return (
     <div className="dnd-body">
-      
+      <div className="sideBar resizable">
+        <CreateComponent/>
+        <ComponentList/>
+      </div>
       <div className="pageContainer resizable">
         <div className="page-head-wrapper">
           <h2>Title: {store?.data?.title ?? ""}</h2>
@@ -193,20 +196,12 @@ const Container = (() => {
             isLast
           />
         </div>
-
-        {/* <TrashDropZone
-          data={{
-            layout
-          }}
-          onDrop={handleDropToTrashBin}
-        /> */}
       </div>
       <div className="sideBar resizable">
-        <UpdateButton/>
+        {/* <CreateComponent/> */}
         <ComponentList/>
-        <CreateComponent/>
       </div>
     </div>
   );
 });
-export default memo(Container);
+export default memo(ComponentBuilder);

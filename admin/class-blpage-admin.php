@@ -106,7 +106,8 @@ class Blpage_Admin {
 		if($query_params){
 			parse_str($query_params, $query_array);
 			$screen_id = isset($query_array['screen_id']) ? $query_array['screen_id'] : null;
-			if($screen_id){
+			$page = isset($query_array['page']) ? $query_array['page'] : null;
+			if($screen_id || $page){
 				wp_localize_script(
 					'bl-react-app-js',
 					'wpApiSettings',
@@ -114,6 +115,7 @@ class Blpage_Admin {
 						'root' => esc_url_raw( rest_url() ),
 						'nonce' => wp_create_nonce( 'wp_rest' ),
 						'screen_id' => $screen_id,
+						'page' => $page,
 					)
 				);
 			}

@@ -14,9 +14,10 @@ body {
   width: 28%;
   padding: 10px;
   /* border-right: 1px solid #111; */
-  height: auto;
+  height: 100%;
   /* background: #e1e1e1; */
   background: #fff;
+  overflow-y: auto;
 }
 
 
@@ -293,13 +294,26 @@ th#component {
 
 .update-button{
   display: flex;
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
   padding: 10px 20px;
-    width: 100%;
-    font-size: 20px;
-    font-weight: 500;
-    background: #2E7D32;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  background: #2E7D32;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.button-blue{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 20px;
+  font-weight: 500;
+  background: #2271c2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 15px;
 }
 .page-head-wrapper {
   display: flex;
