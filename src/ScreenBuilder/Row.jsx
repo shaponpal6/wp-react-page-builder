@@ -62,24 +62,13 @@ const Row = ({ data, path }) => {
           <p class="component-name"><span class={itemComponent.icon}></span> {itemComponent.name}</p>
         </div>
         <h4>{storeData?.data && storeData?.data?.text || ""}</h4>
+        <UpdateComponentModal newData={storeData || {}} component={data} openMediaUploader={openMediaUploader} />
         {isExpend ? (
           <div class="expend-container">
             <ComponentViewer row={storeData}/>
             <div class="expend-button" onClick={() => setIsExpend(!isExpend)}>
               <span class="dashicons dashicons-arrow-up-alt2"></span>
             </div>
-
-            {/* <div class="image-container">
-              {storeData?.data && storeData?.data?.images && storeData.data.images.length && storeData?.data?.images.map((image, index) => (
-                <img key={index} src={image.url || ""} alt={`Image ${index}`} width={150} />
-              ))}
-            </div>
-
-            {storeData?.data && storeData?.data?.ytUrl && storeData?.data?.ytUrl !== "" && (
-              <VideoPlayer url={storeData?.data?.ytUrl || ""} />
-            )}
-             */}
-
           </div>
         ) : (
           <div class="expend-button" onClick={() => setIsExpend(!isExpend)}>

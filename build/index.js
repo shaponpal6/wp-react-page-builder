@@ -3878,7 +3878,11 @@ const Row = ({
     class: "component-name"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     class: itemComponent.icon
-  }), " ", itemComponent.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, storeData?.data && storeData?.data?.text || ""), isExpend ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), " ", itemComponent.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h4", null, storeData?.data && storeData?.data?.text || ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UpdateComponentModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    newData: storeData || {},
+    component: data,
+    openMediaUploader: openMediaUploader
+  }), isExpend ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     class: "expend-container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ComponentViewer__WEBPACK_IMPORTED_MODULE_6__["default"], {
     row: storeData
