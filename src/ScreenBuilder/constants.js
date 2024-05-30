@@ -31,6 +31,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Text Block',
+      type: 'text_block',
       content: "Some input",
       icon: 'dashicons dashicons-editor-paste-text',
       items: [
@@ -54,6 +55,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Single Image',
+      type: 'single_image',
       content: "Some name",
       icon: 'dashicons dashicons-format-image',
       items: [
@@ -77,6 +79,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Image Gallery',
+      type: 'image_gallery',
       content: "Some email",
       icon: 'dashicons dashicons-images-alt',
       items: [
@@ -100,6 +103,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Image Slider',
+      type: 'image_slider',
       content: "Some phone",
       icon: 'dashicons dashicons-slides',
       items: [
@@ -123,6 +127,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Seperator',
+      type: 'seperator',
       content: "Some image",
       icon: 'dashicons dashicons-minus',
       items: [
@@ -146,6 +151,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Button',
+      type: 'button',
       content: "Some image",
       icon: 'dashicons dashicons-button',
       items: [
@@ -175,6 +181,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Tab',
+      type: 'tab',
       content: "Some image",
       icon: 'dashicons dashicons-table-row-after',
       items: [
@@ -192,6 +199,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Testimonial',
+      type: 'testimonial',
       content: "Some image",
       icon: 'dashicons dashicons-testimonial',
       items: [
@@ -209,6 +217,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Video Player',
+      type: 'video_player',
       content: "Some image",
       icon: 'dashicons dashicons-format-video',
       items: [
@@ -232,6 +241,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Youtube Player',
+      type: 'youtube_player',
       content: "Some image",
       icon: 'dashicons dashicons-video-alt3',
       items: [
@@ -255,6 +265,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Google Map',
+      type: 'google_map',
       content: "Some image",
       icon: 'dashicons dashicons-admin-site-alt3',
       items: [
@@ -290,6 +301,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Single Product',
+      type: 'single_product',
       content: "Some image",
       icon: 'dashicons dashicons-feedback',
       items: [
@@ -307,6 +319,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Product Slider',
+      type: 'product_slider',
       content: "Some image",
       icon: 'dashicons dashicons-images-alt2',
       items: [
@@ -324,6 +337,7 @@ export const SIDEBAR_ITEMS = [
     type: SIDEBAR_ITEM,
     component: {
       name: 'Product List',
+      type: 'product_list',
       content: "Some image",
       icon: 'dashicons dashicons-list-view',
       items: [

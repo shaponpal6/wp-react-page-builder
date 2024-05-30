@@ -4216,6 +4216,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Text Block',
+    type: 'text_block',
     content: "Some input",
     icon: 'dashicons dashicons-editor-paste-text',
     items: [{
@@ -4235,6 +4236,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Single Image',
+    type: 'single_image',
     content: "Some name",
     icon: 'dashicons dashicons-format-image',
     items: [{
@@ -4254,6 +4256,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Image Gallery',
+    type: 'image_gallery',
     content: "Some email",
     icon: 'dashicons dashicons-images-alt',
     items: [{
@@ -4273,6 +4276,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Image Slider',
+    type: 'image_slider',
     content: "Some phone",
     icon: 'dashicons dashicons-slides',
     items: [{
@@ -4292,6 +4296,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Seperator',
+    type: 'seperator',
     content: "Some image",
     icon: 'dashicons dashicons-minus',
     items: [{
@@ -4311,6 +4316,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Button',
+    type: 'button',
     content: "Some image",
     icon: 'dashicons dashicons-button',
     items: [{
@@ -4335,6 +4341,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Tab',
+    type: 'tab',
     content: "Some image",
     icon: 'dashicons dashicons-table-row-after',
     items: [{
@@ -4349,6 +4356,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Testimonial',
+    type: 'testimonial',
     content: "Some image",
     icon: 'dashicons dashicons-testimonial',
     items: [{
@@ -4363,6 +4371,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Video Player',
+    type: 'video_player',
     content: "Some image",
     icon: 'dashicons dashicons-format-video',
     items: [{
@@ -4382,6 +4391,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Youtube Player',
+    type: 'youtube_player',
     content: "Some image",
     icon: 'dashicons dashicons-video-alt3',
     items: [{
@@ -4401,6 +4411,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Google Map',
+    type: 'google_map',
     content: "Some image",
     icon: 'dashicons dashicons-admin-site-alt3',
     items: [{
@@ -4430,6 +4441,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Single Product',
+    type: 'single_product',
     content: "Some image",
     icon: 'dashicons dashicons-feedback',
     items: [{
@@ -4444,6 +4456,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Product Slider',
+    type: 'product_slider',
     content: "Some image",
     icon: 'dashicons dashicons-images-alt2',
     items: [{
@@ -4458,6 +4471,7 @@ const SIDEBAR_ITEMS = [{
   type: SIDEBAR_ITEM,
   component: {
     name: 'Product List',
+    type: 'product_list',
     content: "Some image",
     icon: 'dashicons dashicons-list-view',
     items: [{
@@ -4946,7 +4960,7 @@ __webpack_require__.r(__webpack_exports__);
 const fetchScreenData = payload => async dispatch => {
   dispatch((0,_features_screenSlice__WEBPACK_IMPORTED_MODULE_0__.fetchDataStart)());
   try {
-    const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens/' + payload);
+    const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens-dev/' + payload);
     const responseData = await response.json();
     console.log('###data', responseData);
     //   const data = payload;

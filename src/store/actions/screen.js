@@ -3,7 +3,7 @@ import { fetchDataStart, fetchDataSuccess, fetchDataFailure, updateScreenDataSuc
 export const fetchScreenData = (payload) => async (dispatch) => {
     dispatch(fetchDataStart());
     try {
-          const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens/'+payload);
+          const response = await fetch('http://localhost/wordpress/wp-json/bl/v1/screens-dev/'+payload);
           const responseData = await response.json();
           console.log('###data', responseData)
     //   const data = payload;
