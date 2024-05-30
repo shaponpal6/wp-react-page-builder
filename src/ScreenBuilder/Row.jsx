@@ -62,7 +62,7 @@ const Row = ({ data, path }) => {
           <p class="component-name"><span class={itemComponent.icon}></span> {itemComponent.name}</p>
         </div>
         <h4>{storeData?.data && storeData?.data?.text || ""}</h4>
-        <UpdateComponentModal newData={storeData || {}} component={data} openMediaUploader={openMediaUploader} />
+        {/* <UpdateComponentModal newData={storeData || {}} component={data} openMediaUploader={openMediaUploader} /> */}
         {isExpend ? (
           <div class="expend-container">
             <ComponentViewer row={storeData}/>
